@@ -10,13 +10,13 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="client-new.html"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</a>
+            <a href="<?= serverUrl ?>client-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</a>
         </li>
         <li>
-            <a class="active" href="client-list.html"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CLIENTES</a>
+            <a class="active" href="<?= serverUrl ?>client-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CLIENTES</a>
         </li>
         <li>
-            <a href="client-search.html"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR CLIENTE</a>
+            <a href="<?= serverUrl ?>client-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR CLIENTE</a>
         </li>
     </ul>	
 </div>
@@ -50,7 +50,7 @@
                         </button>
                     </td>
                     <td>
-                        <a href="client-update.html" class="btn btn-success">
+                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
                             <i class="fas fa-sync-alt"></i>	
                         </a>
                     </td>
@@ -74,7 +74,7 @@
                         </button>
                     </td>
                     <td>
-                        <a href="client-update.html" class="btn btn-success">
+                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
                             <i class="fas fa-sync-alt"></i>	
                         </a>
                     </td>
@@ -98,7 +98,7 @@
                         </button>
                     </td>
                     <td>
-                        <a href="client-update.html" class="btn btn-success">
+                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
                             <i class="fas fa-sync-alt"></i>	
                         </a>
                     </td>
@@ -122,7 +122,7 @@
                         </button>
                     </td>
                     <td>
-                        <a href="client-update.html" class="btn btn-success">
+                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
                             <i class="fas fa-sync-alt"></i>	
                         </a>
                     </td>
