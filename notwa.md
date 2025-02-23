@@ -23,3 +23,16 @@ Este archivo se considera de seguridad para el sistema. Las siguientes lineas ha
     De nuestra plantilla vamos a extrar los archivos login y error 404 y los vamos añadir a nuestra caroeta de contenido.
 
     No añadimos login y 404 a la lista blanca. Todas las otras vistas si se vana a añadir.
+
+# 8 Corrigiendo direccionamiento de enlaces
+
+# 9 Creando el modelo principal.
+
+    -Creamos un archivo en la carpeta de modelo, y lo llamamos mainModel, aseguramos que nuestro archivo 
+    server.php este bien instanceado.
+    -Creamos dos metodos, uno que es la coneccion a la base de datos y otro para realizar consultas.
+
+# 10 Funciones para Encriptar y desencriptar y generacion de codigos aleatorios
+
+    -Extraemos codigos del depositorio de git.
+    -Creamos la funcion para generar codigos aleatorios
