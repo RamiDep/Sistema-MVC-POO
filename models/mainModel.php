@@ -78,6 +78,83 @@
             $string = trim($string); //Elimina espacios antes de la cadena y al final
         }
 
+        /*Valida una expresion regular */
+        protected static function checkData($filter, $stringIn){
+            if(preg_match("/^". $filter ."$/", $stringIn)){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /*Valida una fecha */
+        protected static function checkDateIn($date){
+            $split = explode("-", $date);
+            if(count($split) == 3 && checkdate($split[1], $split[2], $split[0])){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        /* Formato para tablas del sistema */
+        protected static function doTable($page, $numPage, $url, $buttons){
+            $table = ' <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">';
+            if($page == 1){
+                $table .= ' <li class="page-item disabled">
+                                <a class="page-link"><i class="fa-regular fa-circle-left"></i></a>
+                            </li>';
+            }else{
+                $table .= ' <li class="page-item"><a class="page-link href="'.$url.'1/">
+                                <i class="fa-regular fa-circle-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link href="'.$url.($page-1).'/">
+                                Anterior</a>
+                            </li>
+                            ';
+            }
+
+
+            $ci = 0;
+            for($i=$page;$i <= $numPage; $i++){
+                if($ci>=$buttons){
+                    break;
+                }
+                if($page == $i){
+                    $table.='
+                            <li class="page-item">
+                                <a class="page-link active" href="'.$url.$i.'/">'.$i.'</a>
+                            </li>';
+                }else{
+                    $table.='
+                    <li class="page-item">
+                        <a class="page-link" href="'.$url.$i.'/">'.$i.'</a>
+                    </li>';
+                }
+                $ci++;
+
+            }
+
+            if($page == $numPage){
+                $table .= ' <li class="page-item disabled">
+                                <a class="page-link"><i class="fa-regular fa-circle-right"></i></a>
+                            </li>';
+            }else{
+                $table .= ' <li class="page-item"><a class="page-link href="'.$url.($page+1).'/">
+                                Siguiente</a>
+                            </li>
+                            <li class="page-item"><a class="page-link href="'.$url.$numPage.'/">
+                                <i class="fa-regular fa-circle-right"></i></a>
+                            </li>
+                            ';
+            }
+
+
+            $table .= '</ul></nav>';
+            return $table;
+        }
+
 
 
     }

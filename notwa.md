@@ -36,3 +36,13 @@ Este archivo se considera de seguridad para el sistema. Las siguientes lineas ha
 
     -Extraemos codigos del depositorio de git.
     -Creamos la funcion para generar codigos aleatorios
+
+# 12 Verificar datos y fechas.
+
+Creamos dos funciones. Una para verificar fechas y otra para validar datos de inputs
+
+# 13, 14 Paginacion para tabla
+
+Creamos una funcion especial para la estructura que va tener nuestra tabla.
+
+# 15 Creamos Archivos js 

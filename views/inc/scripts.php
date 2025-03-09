@@ -15,3 +15,5 @@
 <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 
 <script src="<?= serverUrl?>views/js/main.js" ></script>
+
+<script src="<?= serverUrl?>views/js/alerts.js" ></script>
