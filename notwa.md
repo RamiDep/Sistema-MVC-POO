@@ -46,3 +46,8 @@ Creamos dos funciones. Una para verificar fechas y otra para validar datos de in
 Creamos una funcion especial para la estructura que va tener nuestra tabla.
 
 # 15 Creamos Archivos js 
+-  Creamos el archivo alertas.js
+
+# 17 Funciones js para enviar datos via AJAX
+
+    -Buen video, desde el modulo de usuarios revisamos el formulario en html y su configuracion con JS.
