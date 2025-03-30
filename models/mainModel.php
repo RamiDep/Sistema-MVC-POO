@@ -6,7 +6,7 @@
         require_once ("./config/SERVER.php");
     }
 
-    class mainModel{
+    class MainModel{
 
         /* -------FUNCION PARA CONECTAR BASE DE DATOS-------*/
         protected static function connection(){

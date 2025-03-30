@@ -10,7 +10,7 @@
     </head>
     <body>
     <?php
-        $peticiones = false;
+        $ajaxRequest = false;
         require_once("./controllers/viewController.php");
 
         $objView = new viewController();

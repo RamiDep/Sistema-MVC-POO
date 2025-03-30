@@ -24,7 +24,7 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form  class="form-neon ajaxForm" action="" method="POST" data-form="save" autocomplete="off">
+    <form  class="form-neon ajaxForm" action="<?= serverUrl?>ajax/userAjax.php" method="POST" data-form="save" autocomplete="off">
         <fieldset>
             <legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
             <div class="container-fluid">
@@ -32,14 +32,14 @@
                     <div class="col-12 col-md-4">
                         <div class="form-group">
                             <label for="usuario_dni" class="bmd-label-floating">DNI</label>
-                            <input type="text" pattern="[0-9-]{1,20}" class="form-control" name="usuario_dni_reg" id="usuario_dni" maxlength="20">
+                            <input type="text" pattern="[0-9-]{1,20}" class="form-control" name="user_dni_add" id="user_dni" maxlength="20">
                         </div>
                     </div>
                     
                     <div class="col-12 col-md-4">
                         <div class="form-group">
                             <label for="usuario_nombre" class="bmd-label-floating">Nombres</label>
-                            <input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control" name="usuario_nombre_reg" id="usuario_nombre" maxlength="35">
+                            <input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control" name="user_name_add" id="user_name" maxlength="35">
                         </div>
                     </div>
                     <div class="col-12 col-md-4">
@@ -83,13 +83,13 @@
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="usuario_clave_1" class="bmd-label-floating">Contraseña</label>
-                            <input type="password" class="form-control" name="usuario_clave_1_reg" id="usuario_clave_1" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required="" >
+                            <input type="password" class="form-control" name="usuario_clave_1_reg" id="usuario_clave_1" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100">
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="usuario_clave_2" class="bmd-label-floating">Repetir contraseña</label>
-                            <input type="password" class="form-control" name="usuario_clave_2_reg" id="usuario_clave_2" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required="" >
+                            <input type="password" class="form-control" name="usuario_clave_2_reg" id="usuario_clave_2" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100">
                         </div>
                     </div>
                 </div>

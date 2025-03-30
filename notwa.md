@@ -51,3 +51,16 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
 # 17 Funciones js para enviar datos via AJAX
 
     -Buen video, desde el modulo de usuarios revisamos el formulario en html y su configuracion con JS.
+
+# 18 Creamos archivos controllerUser, modelUser, ajax user.
+
+    -Solo crean los archimos, en el archivo  añadimos codigo.
+
+# 19 Modelo para registrar usuarios
+
+    En el archivo userModel.php creamos una instancia al mainModel y tomamos la conexion a la base de datos.
+
+# 20 Controlador para agregar usuarios
+
+    Completamos el campo de AjaxUser.php
+    Completamos la funcion de add_user_Controller
