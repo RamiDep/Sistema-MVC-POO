@@ -64,3 +64,17 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
 
     Completamos el campo de AjaxUser.php
     Completamos la funcion de add_user_Controller
+
+    Ctrl + K, Ctrl + C → Comentar *Commentar en visual code*
+
+    Ctrl + K, Ctrl + U → Descomentar *Commentar en visual code*
+
+# 21 verificar todos los filtros del formulario
+    -Ponemos if de forma seguida 
+
+# 22 Verificar campos
+    -que los siguientes campos no esten dentro de la base de datos.
+    -Correo
+    -DNI
+    -nombre usuario    
+

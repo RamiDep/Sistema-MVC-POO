@@ -2,7 +2,7 @@
 
     require_once("./models/viewModel.php");
 
-    class viewController extends viewModel{
+    class ViewController extends ViewModel{
 
         /*----controlador para optener plantilla*/
         public function getTemplateController(){

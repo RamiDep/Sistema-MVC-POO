@@ -1,12 +1,14 @@
 const ajaxForms = document.querySelectorAll(".ajaxForm"); // todos los formularios van a llevar el nombre de esta clase
 
 function sentAjaxForm(e){
-    e.preventDefault();
+  e.preventDefault();
 
     let data = new FormData(this); //datos de formulario
     let type = this.getAttribute("data-form");
     let method = this.getAttribute("method");
     let action = this.getAttribute("action");
+
+    // console.log(data);
 
     let header = new Headers();
 
@@ -37,14 +39,14 @@ function sentAjaxForm(e){
     Swal.fire({
         title: 'Estas seguro',
         text: alertText,
-        icon: 'question',
+        type: 'question',
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar',
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
       }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.value) {
           fetch(action,config)
           .then(response => response.json())
           .then(response => {
@@ -66,14 +68,14 @@ function ajaxAlert(alert){
         Swal.fire({
             title: alert.Title,
             text: alert.Text,
-            icon: alert.Type,
+            type: alert.Type,
             confirmButtonText: 'Aceptar'
           });
     }else if(alert.Alerta ==="recargar"){
         Swal.fire({
             title: alert.Title,
             text: alert.Text,
-            icon: alert.Type,
+            type: alert.Type,
             confirmButtonText: 'Aceptar'
           }).then((result) => {
             if (result.isConfirmed) {
@@ -84,7 +86,7 @@ function ajaxAlert(alert){
         Swal.fire({
             title: alert.Title,
             text: alert.Text,
-            icon: alert.Type,
+            type: alert.Type,
             confirmButtonText: 'Aceptar'
           }).then((result) => {
             if (result.isConfirmed) {

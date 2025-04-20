@@ -1,5 +1,5 @@
 <?php
-    class viewModel
+    class ViewModel
     {
 
         protected static function getViewModel($view){

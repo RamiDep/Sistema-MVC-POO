@@ -1,6 +1,6 @@
 <?php
 
-    if ($peticionAjax){
+    if ($ajaxRequest){
         require_once ("../config/SERVER.php");
     }else{
         require_once ("./config/SERVER.php");
@@ -76,6 +76,7 @@
             $string = str_ireplace("::", "", $string);
             $string = stripcslashes($string); // Elimina diagonales invertidas
             $string = trim($string); //Elimina espacios antes de la cadena y al final
+            return $string;
         }
 
         /*Valida una expresion regular */
