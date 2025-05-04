@@ -24,7 +24,7 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form  class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/userAjax.php" method="POST" data-form="save" autocomplete="off">
+    <form  class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/userAjax.php" method="POST" data-form="save" autocomplete="">
         <fieldset>
             <legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
             <div class="container-fluid">
@@ -77,7 +77,7 @@
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="usuario_email" class="bmd-label-floating">Email</label>
-                            <input type="email" class="form-control" name="usuario_email_reg" id="usuario_email" maxlength="70">
+                            <input type="" class="form-control" name="usuario_email_reg" id="usuario_email" maxlength="70">
                         </div>
                     </div>
                     <div class="col-12 col-md-6">

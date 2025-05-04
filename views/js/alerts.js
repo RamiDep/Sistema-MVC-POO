@@ -46,10 +46,12 @@ function sentAjaxForm(e){
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
       }).then((result) => {
+        
         if (result.value) {
           fetch(action,config)
           .then(response => response.json())
           .then(response => {
+            console.log(response, action,config);
             return ajaxAlert(response);
           });
         }
@@ -71,7 +73,7 @@ function ajaxAlert(alert){
             type: alert.Type,
             confirmButtonText: 'Aceptar'
           });
-    }else if(alert.Alerta ==="recargar"){
+    }else if(alert.Alerta === "recargar"){
         Swal.fire({
             title: alert.Title,
             text: alert.Text,
@@ -82,7 +84,7 @@ function ajaxAlert(alert){
               location.reload();
             }
           });
-    }else if(alert.Alerta==="limpiar"){
+    }else if(alert.Alerta === "limpiar"){
         Swal.fire({
             title: alert.Title,
             text: alert.Text,

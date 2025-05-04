@@ -11,7 +11,7 @@
         /* -------FUNCION PARA CONECTAR BASE DE DATOS-------*/
         protected static function connection(){
             $conn = new PDO(SGBD, USER, PASS);
-            $conn->exec("SET CARACTER SET utf8");
+            $conn->exec("SET NAMES utf8");
             return $conn;
         }
 

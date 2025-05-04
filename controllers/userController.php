@@ -24,6 +24,8 @@
             $passwordCheck = mainModel :: clearString($_POST['usuario_clave_2_reg']);
 
             $privile = MainModel :: clearString($_POST['usuario_privilegio_reg']);
+            if(empty($privile))
+                $privile = 0;
 
             // print_r($dni, $name, $last_name, $password, $passwordCheck);
 
@@ -31,7 +33,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"No llenaste todos los campos",
+                    "Text"=>"No llenaste todos los campos (Obligatorios)",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -57,7 +59,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en el algun campo",
+                    "Text"=>"Formato incorrecto en el campo nombre",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -67,7 +69,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en algun campo",
+                    "Text"=>"Formato incorrecto en el campo apellido",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -77,7 +79,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en algun campo",
+                    "Text"=>"Formato incorrecto en el campo telefono",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -87,7 +89,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en algun campo",
+                    "Text"=>"Formato incorrecto en el campo direccion",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -97,7 +99,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en algun campo",
+                    "Text"=>"Formato incorrecto en el campo usuario",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -108,7 +110,7 @@
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"Formato incorrecto en algun campo",
+                    "Text"=>"Formato incorrecto en el campo contraseña",
                     "Type"=>"error"
                 ];
                 echo json_encode($alerta);
@@ -169,8 +171,62 @@
                 
             }
 
+            if($password != $passwordCheck){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"¡Las contraseñas no son iguales!",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }else{
+                $password = MainModel :: encryption($password);
+            }
 
-            
+            if($privile < 1 || $privile >3){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"¡El privilegio no es valido!",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();   
+            }
+
+            $dataUser = [
+                "DNI" => $dni,
+                "Nombre" => $name,
+                "Apellido" => $last_name,
+                "Telefono" => $telefone_number,
+                "Direccion" => $adress,
+                "Email" => $email,
+                "Usuario" => $user,
+                "Clave" => $password,
+                "Estado" => "Activa",
+                "Privilegio" => $privile
+            ];
+
+            $addUser = UserModel :: add_user_model($dataUser);
+
+            if($addUser->rowCount() == 1){
+                $alerta = [
+                    "Alerta"=>"limpiar",
+                    "Title"=>"Usuario registrado",
+                    "Text"=>"Los datos han sido guardados",
+                    "Type"=>"success"
+                ];
+                echo json_encode($alerta);
+            }else{
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Usuario  No registrado",
+                    "Text"=>"Ocurrio un error al guardar los datos",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+            }
 
 
             

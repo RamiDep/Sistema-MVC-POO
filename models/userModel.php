@@ -14,7 +14,7 @@ class UserModel extends MainModel {
             INSERT INTO usuario
             (usuario_dni, usuario_nombre, usuario_apellido, usuario_telefono, usuario_direccion, usuario_email, usuario_usuario, usuario_clave, usuario_estado, usuario_privilegio) 
             VALUES
-            (:DNI, :Nombre, :Apellido, :Telefono, :Direccion, :Email, :Usuario :Clave, :Estado, :Privilegio)
+            (:DNI, :Nombre, :Apellido, :Telefono, :Direccion, :Email, :Usuario, :Clave, :Estado, :Privilegio)
         ");
 
         $sql->bindParam(":DNI", $data["DNI"]);
