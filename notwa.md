@@ -76,5 +76,13 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
     -que los siguientes campos no esten dentro de la base de datos.
     -Correo
     -DNI
-    -nombre usuario    
+    -nombre usuario  
+
+# 23 Creando modelo, controller, ajax para Login
+
+# 25 Validando Login
+
+    Usamos validaciones para verificar que los datos que se envian a traves del formulario son correctos,
+    a traves de expresiones regulares.
+
 
