@@ -21,6 +21,19 @@
         }else{
             session_start(['name'=>'ITM']);
 
+            require_once "./controllers/loginController.php";
+            $lc = new LoginController();
+
+            if(!isset($_SESSION['id_itm']) || !isset($_SESSION['user_itm']) || !isset($_SESSION['privile_itm']) || !isset($_SESSION['token_itm'])){
+                echo  $lc->closet_session();
+                exit();
+            }
+           
+            
+            
+
+           
+
     ?>    
             <!-- Main container -->
             <main class="full-box main-container">

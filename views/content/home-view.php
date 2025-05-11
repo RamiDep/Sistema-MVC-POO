@@ -50,6 +50,7 @@
         </div>
     </a>
 
+<?php if($_SESSION['privile_itm'] == 1){ ?>
     <a href="<?= serverUrl ?>user-list/" class="tile">
         <div class="tile-tittle">Usuarios</div>
         <div class="tile-icon">
@@ -57,6 +58,7 @@
             <p>50 Registrados</p>
         </div>
     </a>
+   <?php }?> 
 
     <a href="<?= serverUrl ?>company/" class="tile">
         <div class="tile-tittle">Empresa</div>

@@ -99,5 +99,16 @@
 
         }
 
+        /*--------------CONTROLLADOR PARA FINALIZAR SESIONES-------- */
+        public function closet_session(){
+            session_unset();
+            session_destroy();
+            if (headers_sent()){
+                return "<script> windows.location.href='".serverUrl."login/'; </script>";
+            }else{
+                return header("Location: ".serverUrl."login/");
+            }
+        }
+
         
     }
