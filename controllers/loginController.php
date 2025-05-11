@@ -9,7 +9,7 @@
         
         /*--------------CONTROLLADOR PARA LOGIN-------- */
 
-        public function session_start_controller($datos){
+        public function session_start_controller(){
          
             $userName = MainModel :: clearString($_POST['userName']) ;
             $password = MainModel :: clearString($_POST['userPassword']) ;
@@ -25,10 +25,11 @@
                         title: "Ocurrió un error inesperado",
                         text: "No has llenado todos los campos requeridos",
                         type: "error",
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: "Aceptar"
                     });
                 </script>
                 ';
+                exit();
             }
 
             if (MainModel::checkData("[a-zA-Z0-9]{1,35}", $userName)){
@@ -38,32 +39,61 @@
                         title: "Ocurrió un error inesperado",
                         text: "El formato del campo USUARIO no es correcto",
                         type: "error",
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: "Aceptar"
                     });
                 </script>
                 ';
+                exit();
             }
 
-            if (MainModel::checkData("[a-zA-Z0-9$@.-]{7,100}", $password)){
+            if (MainModel::checkData("[a-zA-Z0-9$@.\-]{7,100}", $password)){
                 echo '
                 <script>
                     Swal.fire({
                         title: "Ocurrió un error inesperado",
                         text: "El formato del campo CONTRASEÑA no es correcto",
                         type: "error",
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: "Aceptar"
                     });
                 </script>
                 ';
+                exit();
             }
 
             $password = MainModel :: encryption($password);
 
             $data_logIn = [
                 "user" => $userName,
-                "password" => $password
+                "password" => $password,
+                "status" => 'Activa'
             ];
 
+            $data_logIn = loginModel :: session_start_model($data_logIn);
+
+            if($data_logIn->rowCount() == 1){
+                $row = $data_logIn->fetch();
+                session_start(['name'=>'ITM']);
+                $_SESSION['id_itm'] = $row['usuario_id'];
+                $_SESSION['name_itm'] = $row['usuario_nombre'];
+                $_SESSION['lastName_itm'] = $row['usuario_apellido'];
+                $_SESSION['user_itm'] = $row['usuario_usuario'];
+                $_SESSION['privile_itm'] = $row['usuario_privilegio'];
+                $_SESSION['token_itm'] = md5(uniqid(mt_rand(), true));
+
+                return header("Location: ". serverUrl."home/" );
+            }else
+            {
+                echo '
+                <script>
+                    Swal.fire({
+                        title: "Ocurrió un error inesperado",
+                        text: "Alguno de los campos no es correcto",
+                        type: "error",
+                        confirmButtonText: "Aceptar"
+                    });
+                </script>
+                ';    
+            }
             
 
 

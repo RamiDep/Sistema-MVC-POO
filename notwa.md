@@ -85,4 +85,9 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
     Usamos validaciones para verificar que los datos que se envian a traves del formulario son correctos,
     a traves de expresiones regulares.
 
+# 26 Creando variables de session
+
+    validamos que los datos existan en la base de datos.
+    Creamos variavles de session  *loginController.php* 
+
 

@@ -13,9 +13,17 @@
             </div>
             <div class="form-group">
                 <label for="UserPassword" class="bmd-label-floating"><i class="fas fa-key"></i> &nbsp; Contraseña</label>
-                <input type="password" class="form-control" id="userPassword" name="userPassword" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required="" >
+                <input type="password" class="form-control" id="userPassword" name="userPassword" pattern="[a-zA-Z0-9$@.\-]{7,100}" maxlength="100" required="" >
             </div>
             <button type="submit" class="btn-login text-center">LOG IN</button>
         </form>
     </div>
 </div>
+
+<?php
+    if(isset($_POST['userName']) && isset($_POST['userPassword'])){
+        require_once "./controllers/loginController.php";
+        $objLogin = new LoginController();
+        echo $objLogin->session_start_controller();
+    }
+?>

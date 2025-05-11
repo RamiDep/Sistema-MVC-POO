@@ -1,4 +1,5 @@
 <?php
+    require_once("mainModel.php");
 
     class LoginModel extends MainModel{
         /**
@@ -13,9 +14,9 @@
                     AND usuario_estado = 'Activa'
             ");
 
-            $sql->bindParam(":Usuario", $data["Usuario"],);
-            $sql->bindParam(":Clave", $data["Clave"],);
-            $sql->bindParam(":Estado", $data["Estado"],);
+            $sql->bindParam(":Usuario", $data["user"],);
+            $sql->bindParam(":Clave", $data["password"],);
+            // $sql->bindParam(":Estado", $data["status"],);
 
             $sql->execute();
 

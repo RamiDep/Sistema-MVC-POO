@@ -19,6 +19,7 @@
         if ($view == "login" || $view == "404"){
             require_once("./views/content/".$view."-view.php");
         }else{
+            session_start(['name'=>'ITM']);
 
     ?>    
             <!-- Main container -->
