@@ -37,7 +37,7 @@ function sentAjaxForm(e){
     }
 
     Swal.fire({
-        title: 'Estas seguro',
+        title: '¿Estas seguro?',
         text: alertText,
         type: 'question',
         confirmButtonText: 'Aceptar',

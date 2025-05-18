@@ -56,7 +56,8 @@
         =            Include JavaScript files           =
         ==============================================-->
         <?php
+            include("./views/inc/logOut.php");
             } 
-            include("./views/inc/scripts.php") ?>
+            include("./views/inc/scripts.php"); ?>
     </body>
     </html>

@@ -1,4 +1,9 @@
 <!-- Page header -->
+<?php
+
+?>
+
+
 <div class="full-box page-header">
     <h3 class="text-left">
         <i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR USUARIO

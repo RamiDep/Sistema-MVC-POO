@@ -110,5 +110,29 @@
             }
         }
 
+        public function close_session_button(){
+            session_start(['name'=>'ITM']);
+            $token = mainModel :: decryption($_POST['token']);
+            $user = mainModel :: decryption($_POST['user']);
+
+            if($user == $_SESSION['user_itm'] && $token == $_SESSION['token_itm']){
+                session_unset();
+                session_destroy();
+                $alert = [
+                    "Alerta" => "redireccionar",
+                    "URL" => serverUrl."login/"
+                ];
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se pudo cerrar la session en el sistema",
+                    "Type"=>"error"
+                ];
+            }
+            echo json_encode($alert);
+
+        }
+
         
     }

@@ -1,4 +1,12 @@
 	<!-- Page header -->
+<?php
+    if($_SESSION['privile_itm'] != 1){
+        echo  $lc->closet_session();
+        exit();
+    }
+?>
+
+
 <div class="full-box page-header">
     <h3 class="text-left">
         <i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE USUARIOS

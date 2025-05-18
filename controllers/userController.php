@@ -231,4 +231,26 @@
 
             
         }
+
+        public function pager_controller($page, $record, $privile, $id, $url, $search){
+
+            
+            $page = mainModel :: clearString($page);
+            $record = mainModel :: clearString($record);
+            $privile = mainModel :: clearString($privile);
+            $id = mainModel :: clearString($id);
+            $url = mainModel :: clearString($url);
+            $search = mainModel :: clearString($search);
+
+            $url = serverUrl . $url."/";
+
+            $table = "";
+
+            $page = (isset($page) && $page > 0) ? (int) $page : 1;
+            $index = (isset($page) && $page > 0) ? (($page * $record) - $record)  : 0;
+
+
+
+
+        } // final controller
     }

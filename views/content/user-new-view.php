@@ -1,5 +1,12 @@
 	<!-- Page header -->
-<div class="full-box page-header">
+    <?php
+    if($_SESSION['privile_itm'] != 1){
+        echo  $lc->closet_session();
+        exit();
+    }
+?>
+
+    <div class="full-box page-header">
     <h3 class="text-left">
         <i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO USUARIO
     </h3>

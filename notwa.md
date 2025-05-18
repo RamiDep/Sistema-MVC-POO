@@ -90,4 +90,8 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
     validamos que los datos existan en la base de datos.
     Creamos variavles de session  *loginController.php* 
 
+# 28 Aplicando seguridad en vistas Usuario.
+
+
+
 
