@@ -21,6 +21,8 @@
         }else{
             session_start(['name'=>'ITM']);
 
+            $page = explode("/", $_GET['views']);
+
             require_once "./controllers/loginController.php";
             $lc = new LoginController();
 
@@ -28,12 +30,7 @@
                 echo  $lc->closet_session();
                 exit();
             }
-           
-            
-            
-
-           
-
+             
     ?>    
             <!-- Main container -->
             <main class="full-box main-container">

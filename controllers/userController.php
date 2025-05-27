@@ -250,7 +250,102 @@
             $index = (isset($page) && $page > 0) ? (($page * $record) - $record)  : 0;
 
 
+            if(isset($search) && $search != ""){
+                $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM usuario 
+                  WHERE ((usuario_id != '$id' AND usuario_id != '1')
+                   AND (usuario_dni LIKE '%$search%' 
+                    OR usuario_nombre LIKE '%$search%' 
+                    OR usuario_apellido LIKE '%$search%'
+                    OR usuario_telefono LIKE '%$search%'
+                    OR usuario_email LIKE '%$search%'
+                    OR usuario_usuario LIKE '%$search%'))
+                  ORDER BY usuario_nombre ASC LIMIT $index, $record    
+                ";
+            }else{
+                $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM usuario 
+                  WHERE usuario_id != '$id' AND usuario_id != '1'
+                  ORDER BY usuario_nombre ASC LIMIT $index, $record 
+                  ";
+            }
 
+            $connect = mainModel :: connection();
+
+            $data = $connect -> query($querySearch);
+            $data = $data -> fetchAll();
+
+            $total = $connect -> query("SELECT FOUND_ROWS()");
+            $total = (int)$total->fetchColumn();
+
+            $pagesTotal = ceil($total/$record);
+
+            $table .= ' 
+                <div class="table-responsive">
+                    <table class="table table-dark table-sm">
+                        <thead>
+                            <tr class="text-center roboto-medium">
+                                <th>#</th>
+                                <th>DNI</th>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>TELÉFONO</th>
+                                <th>DIRECCION</th>
+                                <th>USUARIO</th>
+                                <th>EMAIL</th>
+                                <th>ACTUALIZAR</th>
+                                <th>ELIMINAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                ';
+            if($total >= 1 && $page <= $pagesTotal){
+                $count = $index+1;
+                foreach($data as $row){
+                    $table .= '
+                        <tr class="text-center" >
+                            <td>'.$count.'</td>
+                            <td>'.$row['usuario_dni'].'</td>
+                            <td>'.$row['usuario_nombre'].'</td>
+                            <td>'.$row['usuario_apellido'].'</td>
+                            <td>'.$row['usuario_telefono'].'</td>
+                            <td>'.$row['usuario_direccion'].'</td>
+                            <td>'.$row['usuario_usuario'].'</td>
+                            <td>'.$row['usuario_email'].'</td>
+                            
+                            <td>
+                                <a href="<?= serverUrl ?>user-update/" class="btn btn-success">
+                                    <i class="fas fa-sync-alt"></i>	
+                                </a>
+                            </td>
+                            <td>
+                                <form action="">
+                                    <button type="button" class="btn btn-warning">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>';
+                        $count++;
+                }
+            }else{
+                if($total >= 1){
+                    $table .= ' <tr class="text-center">
+                                    <td colspan="9"><a href="'.$url.'">Haga clic para recargar listado</a></td>
+                                </tr>';
+                }else{
+                    $table .= ' <tr class="text-center">
+                                    <td colspan="9">No hay registros en el sistema</td>
+                                </tr>';
+                }
+    
+            
+            }
+            $table .= '</tbody></table></div>';
+
+            if($total >= 1 && $page <= $pagesTotal){
+                $table .= mainModel ::  doTable($page, $pagesTotal, $url, 7);
+            }
+
+            return $table;
 
         } // final controller
     }
