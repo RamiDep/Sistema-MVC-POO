@@ -4,7 +4,7 @@
     require_once "../config/App.php";
 
     
-    if(isset($_POST["user_dni_add"])){
+    if(isset($_POST["user_dni_add"]) || isset($_POST["id_user_delete"])){
          //----------------INSTANCIA AL CONTROLADOR 
        // echo "Hola";
         require_once "../controllers/userController.php";
@@ -14,6 +14,10 @@
     //AGREGAR UN USUARIO 
         if(isset($_POST["user_dni_add"]) && isset($_POST["user_name_add"])){ //Formulario agregar ususario
             echo $objUserController->add_user_controller();
+        }
+
+        if(isset($_POST["id_user_delete"]) && isset($_POST["id_user_delete"])){ //Formulario agregar ususario
+            echo $objUserController->delete_user_controller();
         }
 
     }else{

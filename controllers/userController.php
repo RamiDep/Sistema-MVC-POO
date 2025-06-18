@@ -263,7 +263,7 @@
                 ";
             }else{
                 $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM usuario 
-                  WHERE usuario_id != '$id' AND usuario_id != '1'
+                  WHERE usuario_id != '$id' AND usuario_id != '1' AND usuario_estado != 'INACTIVO'
                   ORDER BY usuario_nombre ASC LIMIT $index, $record 
                   ";
             }
@@ -299,6 +299,7 @@
                 ';
             if($total >= 1 && $page <= $pagesTotal){
                 $count = $index+1;
+                $pageIni = $index+1;
                 foreach($data as $row){
                     $table .= '
                         <tr class="text-center" >
@@ -312,13 +313,14 @@
                             <td>'.$row['usuario_email'].'</td>
                             
                             <td>
-                                <a href="<?= serverUrl ?>user-update/" class="btn btn-success">
+                                <a href="'.serverUrl.'user-update/'.mainModel :: encryption($row['usuario_id']).'/" class="btn btn-success">
                                     <i class="fas fa-sync-alt"></i>	
                                 </a>
                             </td>
                             <td>
-                                <form action="">
-                                    <button type="button" class="btn btn-warning">
+                                <form class="ajaxForm" action="'.serverUrl.'ajax/userAjax.php" method="POST" data-form="delete" autocomplete="">
+                                    <input type="hidden" name="id_user_delete" value="'.mainModel :: encryption($row['usuario_id']).'">
+                                    <button type="submit" class="btn btn-warning">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </form>
@@ -326,6 +328,7 @@
                         </tr>';
                         $count++;
                 }
+                $pageFin = $count-1;
             }else{
                 if($total >= 1){
                     $table .= ' <tr class="text-center">
@@ -341,11 +344,109 @@
             }
             $table .= '</tbody></table></div>';
 
+            if($total >= 1){
+            }
+
             if($total >= 1 && $page <= $pagesTotal){
+                $table .= '<p class="text-right">mostrando usuario '.$pageIni.' al '.$pageFin.' de un total de '.$total.'';
                 $table .= mainModel ::  doTable($page, $pagesTotal, $url, 7);
             }
 
             return $table;
 
         } // final controller
+
+        public function delete_user_controller(){
+            $id = mainModel :: clearString($_POST['id_user_delete']);
+            $id = mainModel :: decryption($_POST['id_user_delete']);
+            
+
+            // $id = 12;
+
+            if ($id == 1){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No puedes eliminar el usuario principal",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            /**Comprobando usuario en la base de datos */
+
+            $check_user = mainModel :: setConsult("SELECT usuario_id FROM usuario WHERE usuario_id = '$id'");
+            if($check_user->rowCount() <= 0){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"EL usuario '".$id."' no fue encontrado en la base de datos",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            /**Comprobando si hay uno o mas prestamos */
+
+            $check_privile = mainModel :: setConsult("SELECT usuario_id FROM prestamo WHERE usuario_id = '$id' LIMIT 1");
+            if($check_privile->rowCount() > 0){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No podemos eliminar este usuario debido a que tiene prestamos asociados, 
+                    recomendamos desabilitar el usuario",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            
+             /**Comprobando si tiene privilegios para eliminar */
+            session_start(['name'=>'ITM']);
+            if($_SESSION['privile_itm'] != 1){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No tienes los permisos necesarios para eliminar usuarios",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            $delete_user = userModel :: delete_user_model($id);
+
+            if($delete_user->rowCount() == 1){
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Exito",
+                    "Text"=>"Se ha eliminado correctamente el usuario",
+                    "Type"=>"success"
+                ];
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se pudo eliminar el usuario, intenta nuevamente",
+                    "Type"=>"error"
+                ];
+            }
+            echo json_encode($alert);
+
+        }
+
+        public function show_user_controller($type, $id_user){
+            
+
+            $type = mainModel :: clearString($type);
+
+            $id = mainModel :: decryption($id_user);
+            $id = mainModel :: clearString($id_user);
+
+            return userModel :: show_user_model($type, $id);
+
+        }
     }

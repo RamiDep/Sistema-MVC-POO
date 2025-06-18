@@ -34,4 +34,30 @@ class UserModel extends MainModel {
 
     }
 
+
+    protected static function delete_user_model($id){
+        $deleteSql = mainModel :: connection()->prepare("UPDATE usuario SET usuario_estado = 'INACTIVO' WHERE usuario_id=:ID");
+
+        $deleteSql->bindParam(":ID", $id);
+        $deleteSql->execute();
+        
+        return $deleteSql;
+    }
+
+    protected static function show_user_model($type, $id_user){
+        if($type == 1){
+            $get_user_data = mainModel :: connection()->prepare("SELECT * FROM usuario WHERE usuario_id = :ID");
+            $get_user_data->bindParam(":ID", $id_user);
+            
+
+        }else if($type == 0){
+            $get_user_data = mainModel :: connection()->prepare("SELECT usuario_id FROM usuario WHERE usuario_id != 1");
+            // $get_user_data->bindParam(":ID", $id_user);
+            
+        }
+        $get_user_data->execute();
+        return $get_user_data;
+    }
+
+
 }

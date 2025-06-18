@@ -50,12 +50,18 @@
         </div>
     </a>
 
-<?php if($_SESSION['privile_itm'] == 1){ ?>
+    <?php 
+        if($_SESSION['privile_itm'] == 1){ 
+            require_once "./controllers/userController.php";
+            $object = new UserController();
+            $totalUsers = $object->show_user_controller(0, 1);
+
+    ?>
     <a href="<?= serverUrl ?>user-list/" class="tile">
         <div class="tile-tittle">Usuarios</div>
         <div class="tile-icon">
             <i class="fas fa-user-secret fa-fw"></i>
-            <p>50 Registrados</p>
+            <p><?php echo $totalUsers->rowCount(); ?> Registrados</p>
         </div>
     </a>
    <?php }?> 
