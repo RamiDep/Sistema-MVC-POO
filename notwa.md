@@ -95,8 +95,12 @@ Creamos una funcion especial para la estructura que va tener nuestra tabla.
 # 39
     Copiar los datos del formulario de new-user al formulario update
     Anadimos un input tipo hidden que tenga el valor del id
-    * Con la variable campos, llenamos la informacion del usuario.
+    - Con la variable campos, llenamos la informacion del usuario.
 
-
+# 40 Crear modelo actualizar
+    *Modelo siempre debe ser Protected y Static*
+    Recibe un array de datos
+    Crea una Query Update
+    Pasamos los parametros bindParam() y retornamos;
 
 

@@ -9,12 +9,15 @@
     class MainModel{
 
         /* -------FUNCION PARA CONECTAR BASE DE DATOS-------*/
+        /* ------connection()-> AQUI USAMOS PREPARE--------*/
         protected static function connection(){
             $conn = new PDO(SGBD, USER, PASS);
             $conn->exec("SET NAMES utf8");
             return $conn;
         }
 
+
+        /* Funcion para hacer consultas SELECT*/
         protected static function setConsult($query){
             $response = self::connection()->prepare($query); //hace referencia a otro metodo
             $response->execute();

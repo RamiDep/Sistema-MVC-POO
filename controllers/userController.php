@@ -449,4 +449,36 @@
             return userModel :: show_user_model($type, $id);
 
         }
+
+        public function update_user_controller(){
+            $id = $_POST['user_id_update'];
+            $id = mainModel :: decryption($id);
+            $id = mainModel :: clearString($id);
+
+            $isUser = mainModel :: setConsult("SELECT usuario_id FROM usuario WHERE usuario_id = '$id'");
+
+            if ($isUser->rowCount() <= 0){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No hemos encontrado el usuario en el sistema",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }else{
+                $data = $isUser->fetch();
+            }
+            
+            $dni = MainModel :: clearString($_POST['user_dni_add']);
+            $name = MainModel :: clearString($_POST['user_name_add']);
+            $last_name = MainModel :: clearString($_POST['usuario_apellido_reg']);
+            $telefone_number = MainModel :: clearString($_POST['usuario_telefono_reg']);
+            $adress = MainModel :: clearString($_POST['usuario_direccion_reg']);
+            $user = mainModel :: clearString($_POST['usuario_usuario_reg']);
+            $email = mainModel :: clearString($_POST['usuario_email_reg']);
+            $password = mainModel :: clearString($_POST['usuario_clave_1_reg']);
+            $privile = MainModel :: clearString($_POST['usuario_privilegio_reg']);
+
+        }
     }

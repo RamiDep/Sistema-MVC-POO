@@ -47,7 +47,7 @@
     ?>
 
     <form class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/userAjax.php" method="POST" data-form="update" autocomplete="">
-        <input type="hidden" name="user_id" value="<?= $page[1]?>">
+        <input type="hidden" name="user_id_update" value="<?= $page[1]?>">
         <fieldset>
             <legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
             <div class="container-fluid">

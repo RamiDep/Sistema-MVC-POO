@@ -59,5 +59,32 @@ class UserModel extends MainModel {
         return $get_user_data;
     }
 
+    /* MODELO PARA ACTUALIZAR USUARIOS*/
+
+    protected static function update_user_model($data){
+        $sqlUpdate = mainModel :: connection()->prepare("UPDATE usuario SET 
+        usuario_dni = :_DNI, usuario_nombre = :_Name, 
+        usuario_apellido = :_LastName, usuario_telefono = :_Phone, 
+        usuario_direccion = :_Address, usuario_email = :_Email, 
+        usuario_usuario = :_User, usuario_clave = :_Password, 
+        usuario_estado = :_Status, usuario_privilegio = :_Privile
+        WHERE usuario_id = :_id_user");
+
+        $sqlUpdate->bindParam(":_DNI", $data['DNI']);
+        $sqlUpdate->bindParam(":_Name", $data['Name']);
+        $sqlUpdate->bindParam(":_LastName", $data['LastName']);
+        $sqlUpdate->bindParam(":_Phone, ", $data['Phone']);
+        $sqlUpdate->bindParam(":_Address", $data['Address']);
+        $sqlUpdate->bindParam(":_Email", $data['Email']);
+        $sqlUpdate->bindParam(":_User", $data['User']);
+        $sqlUpdate->bindParam(":_Password", $data['Password']);
+        $sqlUpdate->bindParam(":_Status", $data['Status']);
+        $sqlUpdate->bindParam(":_Privile", $data['Privile']);
+        $sqlUpdate->bindParam(":_id_user", $data['ID']);
+        $sqlUpdate->execute();
+
+        return $sql
+    }
+
 
 }
