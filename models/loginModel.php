@@ -11,7 +11,7 @@
                 SELECT * FROM usuario WHERE 
                     usuario_usuario = :Usuario 
                     AND usuario_clave = :Clave
-                    AND usuario_estado = 'Activa'
+                    AND usuario_estado = 'Activo'
             ");
 
             $sql->bindParam(":Usuario", $data["user"],);

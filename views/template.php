@@ -9,7 +9,7 @@
         <?php include("./views/inc/links.php") ?>
     </head>
     <body>
-    <?php
+    <?php   
         $ajaxRequest = false;
         require_once("./controllers/viewController.php");
 

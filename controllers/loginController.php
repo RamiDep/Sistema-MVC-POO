@@ -65,7 +65,7 @@
             $data_logIn = [
                 "user" => $userName,
                 "password" => $password,
-                "status" => 'Activa'
+                "status" => 'Activo'
             ];
 
             $data_logIn = loginModel :: session_start_model($data_logIn);

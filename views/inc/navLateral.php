@@ -66,7 +66,8 @@
                     </ul>
                 </li>
 
-                <?php if($_SESSION['privile_itm'] == 1){ ?>
+                <?php if($_SESSION['privile_itm'] == 1){ 
+                    ?>
                 <li>
                     <a href="#" class="nav-btn-submenu"><i class="fas  fa-user-secret fa-fw"></i> &nbsp; Usuarios <i class="fas fa-chevron-down"></i></a>
                     <ul>

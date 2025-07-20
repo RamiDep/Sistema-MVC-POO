@@ -73,7 +73,7 @@ class UserModel extends MainModel {
         $sqlUpdate->bindParam(":_DNI", $data['DNI']);
         $sqlUpdate->bindParam(":_Name", $data['Name']);
         $sqlUpdate->bindParam(":_LastName", $data['LastName']);
-        $sqlUpdate->bindParam(":_Phone, ", $data['Phone']);
+        $sqlUpdate->bindParam(":_Phone", $data['Phone']);
         $sqlUpdate->bindParam(":_Address", $data['Address']);
         $sqlUpdate->bindParam(":_Email", $data['Email']);
         $sqlUpdate->bindParam(":_User", $data['User']);
@@ -83,7 +83,7 @@ class UserModel extends MainModel {
         $sqlUpdate->bindParam(":_id_user", $data['ID']);
         $sqlUpdate->execute();
 
-        return $sql
+        return $sqlUpdate;
     }
 
 
