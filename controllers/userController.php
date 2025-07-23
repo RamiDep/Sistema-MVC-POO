@@ -756,7 +756,7 @@
                 "LastName"=> $last_name,
                 "Phone"=> $telefone_number,
                 "Address"=> $adress,
-                "Emai"=> $email,
+                "Email"=> $email,
                 "User"=> $user,
                 "Password"=> $clave,
                 "Status"=> $status,
