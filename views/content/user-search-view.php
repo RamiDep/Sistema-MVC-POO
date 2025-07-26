@@ -29,13 +29,15 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form class="form-neon" action="">
+    <form class="form-neon ">
+        <input type="hidden" name="modulo" value="users">
+        <input type="hidden" name="delete_search" value="delete">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="inputSearch" class="bmd-label-floating">¿Qué usuario estas buscando?</label>
-                        <input type="text" class="form-control" name="busqueda-" id="inputSearch" maxlength="30">
+                        <input type="text" class="form-control" name="search_user" id="inputSearch_user" maxlength="30">
                     </div>
                 </div>
                 <div class="col-12">

@@ -780,6 +780,7 @@
                 ];
             }
             echo json_encode($alerta);
+            /* Fin video 44 */
 
         }
     }
