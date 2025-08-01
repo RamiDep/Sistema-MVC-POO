@@ -707,12 +707,7 @@
             }else{
                 $clave = $data['usuario_clave'];
             }
-
-            
-
-
-
-           
+   
 
             /*Comprobar credenciales para actualizar datos */
             // print_r($type_acount);

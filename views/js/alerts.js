@@ -1,7 +1,7 @@
 const ajaxForms = document.querySelectorAll(".ajaxForm"); // todos los formularios van a llevar el nombre de esta clase
 
 function sentAjaxForm(e){
-  e.preventDefault();
+    e.preventDefault();
 
     let data = new FormData(this); //datos de formulario
     let type = this.getAttribute("data-form");
