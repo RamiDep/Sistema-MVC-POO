@@ -16,31 +16,12 @@
             return $conn;
         }
 
-
         /* Funcion para hacer consultas SELECT*/
         protected static function setConsult($query){
             $response = self::connection()->prepare($query); //hace referencia a otro metodo
             $response->execute();
             return $response;
         }
-
-        /**-----------Funcion para Encriptar  ---------------------*/
-        /*public function encryption($string){
-			$output=FALSE;
-			$key=hash('sha256', SECRET_KEY);
-			$iv=substr(hash('sha256', SECRET_IV), 0, 16);
-			$output=openssl_encrypt($string, METHOD, $key, 0, $iv);
-			$output=base64_encode($output);
-			return $output;
-		}*/
-
-        /**-----------Funcion para desencriptar  ---------------------*/
-		/*protected static function decryption($string){
-			$key=hash('sha256', SECRET_KEY);
-			$iv=substr(hash('sha256', SECRET_IV), 0, 16);
-			$output=openssl_decrypt(base64_decode($string), METHOD, $key, 0, $iv);
-			return $output;
-		}*/
 
         /**-----------Funcion para Encriptar  ---------------------*/
         public static function encryption($string) {
