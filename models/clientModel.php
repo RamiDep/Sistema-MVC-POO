@@ -17,4 +17,14 @@
             return $sql;
         }
         /*fin video 49 */
+
+        /*video 55 */
+        protected static function delete_client_model($id){
+            $sql = MainModel :: connection() -> prepare("DELETE FROM cliente WHERE cliente_id = :ID");
+            $sql -> bindParam(":ID", $id);       
+
+            $sql -> execute();
+            return $sql;
+        }
+        /*fin video 55 */
     }

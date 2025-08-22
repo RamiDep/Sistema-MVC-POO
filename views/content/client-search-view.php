@@ -23,15 +23,19 @@
 </div>
 
 <!-- Content here-->
+<!--Video 54-->
+<?php
+if (!isset($_SESSION['search_clients']) && empty($_SESSION['search_clients'])){
+?>
 <div class="container-fluid">
-    <form class="form-neon" action="">
+    <form class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/searchAjax.php" method="POST" data-form="default" autocomplete="">
+         <input type="hidden" name="modulo" value="clients">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="inputSearch" class="bmd-label-floating">¿Qué cliente estas buscando?</label>
-                        <input type="text" class="form-control" name="busqueda-" id="inputSearch" maxlength="30">
-                    </div>
+                        <input type="text" class="form-control" name="search_object" id="inputSearch_user" maxlength="30">                    </div>
                 </div>
                 <div class="col-12">
                     <p class="text-center" style="margin-top: 40px;">
@@ -42,15 +46,19 @@
         </div>
     </form>
 </div>
+<?php
+}else{
+?>
 
 <div class="container-fluid">
-    <form action="">
-        <input type="hidden" name="eliminar-busqueda" value="eliminar">
+    <form class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/searchAjax.php" method="POST" data-form="search" autocomplete="">
+        <input type="hidden" name="delete_search" value="delete">
+        <input type="hidden" name="modulo" value="clients">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-6">
                     <p class="text-center" style="font-size: 20px;">
-                        Resultados de la busqueda <strong>“Buscar”</strong>
+                        Resultados de la busqueda <strong>“<?php echo $_SESSION['search_clients']?>”</strong>
                     </p>
                 </div>
                 <div class="col-12">
@@ -63,132 +71,14 @@
     </form>
 </div>
 
-<div class="container-fluid">
-    <div class="table-responsive">
-        <table class="table table-dark table-sm">
-            <thead>
-                <tr class="text-center roboto-medium">
-                    <th>#</th>
-                    <th>DNI</th>
-                    <th>NOMBRE</th>
-                    <th>APELLIDO</th>
-                    <th>TELEFONO</th>
-                    <th>DIRECCIÓN</th>
-                    <th>ACTUALIZAR</th>
-                    <th>ELIMINAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-center" >
-                    <td>1</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL CLIENTE</td>
-                    <td>APELLIDO DEL CLIENTE</td>
-                    <td>72349874</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="client-update.html" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i>	
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>2</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL CLIENTE</td>
-                    <td>APELLIDO DEL CLIENTE</td>
-                    <td>72349874</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i>	
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>3</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL CLIENTE</td>
-                    <td>APELLIDO DEL CLIENTE</td>
-                    <td>72349874</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i>	
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>4</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL CLIENTE</td>
-                    <td>APELLIDO DEL CLIENTE</td>
-                    <td>72349874</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>client-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i>	
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container-fluid">
+        <?php /* Video 47  */
+            require_once "./controllers/clientController.php";
+            $object_client = new ClientController();
+            echo $object_client->pager_client_controller($page[1], 15, $_SESSION['privile_itm'], $page[0], $_SESSION['search_clients']);
+        ?>
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
+<?php
+}
+?>
+<!--Video 54 FIN-->

@@ -121,7 +121,7 @@
         }
 
         /*Controlador para paginar clientes *Video 52* */
-         public function pager_client_controller($page, $record, $privile, $url, $search){
+        public function pager_client_controller($page, $record, $privile, $url, $search){
 
             
             $page = mainModel :: clearString($page);
@@ -150,16 +150,19 @@
             }else{
                 $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM cliente 
                 ORDER BY cliente_nombre ASC LIMIT $index, $record";
+                //  var_dump($querySearch);
             }
 
-            $connect = mainModel :: connection();
+            $connect = MainModel :: connection();
 
             $data = $connect -> query($querySearch);
             $data = $data -> fetchAll();
+            
 
             $total = $connect -> query("SELECT FOUND_ROWS()");
+            
             $total = (int)$total->fetchColumn();
-
+            // var_dump($total);
             $pagesTotal = ceil($total/$record);
 
             $table .= ' 
@@ -259,5 +262,78 @@
             return $table;
 
         } // final pager_controller
+
+        /**
+         * Controllador para eliminar clientes
+         * video 55
+         */
+        public function delete_client_controller(){
+            /*Video 56 */
+            $id_client = MainModel :: decryption($_POST['id_client_delete']);
+            $id_client = MainModel :: clearString($id_client);
+
+            $check_id_client = MainModel :: setConsult("SELECT cliente_id FROM cliente WHERE cliente_id = '$id_client'");
+            
+            if ($check_id_client -> rowCount() < 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se encuentra ese id en la base de datos",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+            /**Verificamos si el cliente no tiene prestamos */
+            $check_client_prestamo = MainModel :: setConsult("SELECT cliente_id FROM prestamo WHERE cliente_id = '$id_client' LIMIT 1");
+
+            if ($check_client_prestamo -> rowCount() > 0){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se puede eliminar ese cliente por que tiene prestamos pendientes",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+            /*Video 56 FIN*/
+            /*Video 57*/
+            session_start(['name'=>'ITM']);
+            if($_SESSION['privile_itm'] != 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No tienes permisos necesarios para eliminar clientes",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            $delete_client = ClientModel :: delete_client_model($id_client);
+
+            if($delete_client -> rowCount() == 1){
+                $alerta = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Se ha eliminado correctamente el cliente",
+                    "Type"=>"success"
+                ];
+            }else{
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha podido eliminar el cliente, por favor intente de nuevo",
+                    "Type"=>"error"
+                ];
+            }
+            echo json_encode($alerta);
+            /*Video 56 FIN*/
+
+
+
+        }
+         /* video 55*/
 
     }
