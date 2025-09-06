@@ -334,6 +334,14 @@
 
 
         }
+
+        public function show_client_controller($type, $id_client){  
+            $type = mainModel :: clearString($type);
+            $id = mainModel :: decryption($id_client);
+            $id = mainModel :: clearString($id_client);
+
+            return ClientModel :: show_client_model($type, $id);
+        }
          /* video 55*/
 
     }

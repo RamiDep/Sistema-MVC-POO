@@ -22,9 +22,23 @@
         protected static function delete_client_model($id){
             $sql = MainModel :: connection() -> prepare("DELETE FROM cliente WHERE cliente_id = :ID");
             $sql -> bindParam(":ID", $id);       
-
             $sql -> execute();
             return $sql;
         }
         /*fin video 55 */
+
+        /*Video 58
+            Muestra informacion del cliente que se va actualizar
+        */
+        protected static function show_client_model($type, $id_client){
+            if($type == 1){ //Tipo se define en las vistas 0 = Home y en 1 = Update
+                $get_client_data = mainModel :: connection()->prepare("SELECT * FROM cliente WHERE cliente_id = :ID");
+                $get_client_data->bindParam(":ID", $id_client);
+            }else if($type == 0){
+                $get_client_data = mainModel :: connection()->prepare("SELECT cliente_id FROM cliente WHERE cliente_id != 1");
+            }
+            $get_client_data->execute();
+            return $get_client_data;
+        }
+        /*Fin video 58 */
     }

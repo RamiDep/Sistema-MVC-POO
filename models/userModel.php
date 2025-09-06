@@ -44,6 +44,7 @@ class UserModel extends MainModel {
         return $deleteSql;
     }
 
+    /*Muestra la informacion del usuario a actualizar */
     protected static function show_user_model($type, $id_user){
         if($type == 1){
             $get_user_data = mainModel :: connection()->prepare("SELECT * FROM usuario WHERE usuario_id = :ID");

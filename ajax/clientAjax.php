@@ -2,7 +2,7 @@
     $ajaxRequest = true;
     require_once "../config/App.php";
     
-    if(isset($_POST['client_dni_add']) || isset($_POST['client_name_add']) || isset($_POST['id_client_delete'])){
+    if(isset($_POST['client_dni_add']) || isset($_POST['client_name_add']) || isset($_POST['id_client_delete']) || isset($_POST['id_client_update'])){
         require_once("../controllers/clientController.php");
         $object_client = new ClientController();
 
@@ -15,6 +15,11 @@
             echo $object_client -> delete_client_controller();
         }
         /*Video 55: Eliminar cliente*/
+
+        /*Actializar cliente */
+        if (isset($_POST['id_client_update'])){
+            echo $object_client -> delete_client_controller();
+        }
 
     }else{
         session_start(["name" => 'Error']);

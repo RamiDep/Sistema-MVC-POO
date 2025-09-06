@@ -439,15 +439,10 @@
         }
 
         public function show_user_controller($type, $id_user){
-            
-
             $type = mainModel :: clearString($type);
-
             $id = mainModel :: decryption($id_user);
             $id = mainModel :: clearString($id_user);
-
             return userModel :: show_user_model($type, $id);
-
         }
 
         public function update_user_controller(){

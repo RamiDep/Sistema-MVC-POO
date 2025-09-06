@@ -15,14 +15,23 @@
 
 <!-- Content -->
 <div class="full-box tile-container">
-    <a href="<?= serverUrl ?>client-new/" class="tile">
-        <div class="tile-tittle">Clientes</div>
-        <div class="tile-icon">
-            <i class="fas fa-users fa-fw"></i>
-            <p>5 Registrados</p>
-        </div>
-    </a>
-    
+
+    <?php 
+        if($_SESSION['privile_itm'] == 1){ 
+            require_once "./controllers/clientController.php";
+            $object_client = new ClientController();
+            $totalClients = $object_client->show_client_controller(0, 1);
+
+    ?>
+            <a href="<?= serverUrl ?>client-list/" class="tile">
+                <div class="tile-tittle">Clientes</div>
+                <div class="tile-icon">
+                    <i class="fas fa-users fa-fw"></i>
+                    <p><?php echo $totalClients->rowCount();?> Registrados</p>
+                </div>
+            </a>
+     <?php }?> 
+
     <a href="<?= serverUrl ?>item-list/" class="tile">
         <div class="tile-tittle">Items</div>
         <div class="tile-icon">
