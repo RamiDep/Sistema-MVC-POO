@@ -1,5 +1,5 @@
   <!-- Page header -->
-  <div class="full-box page-header">
+<div class="full-box page-header">
     <h3 class="text-left">
         <i class="fas fa-building fa-fw"></i> &nbsp; INFORMACÓN DE LA EMPRESA
     </h3>
@@ -7,6 +7,15 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero nam eaque nostrum, voluptates, rerum quo. Consequuntur ut, maxime? Quibusdam ipsum maxime non veritatis dignissimos qui reiciendis, amet eum nihil! Et!
     </p>
 </div>
+
+  <?php 
+  require_once "./controllers/companyController.php";
+  $obj_company = new  CompanyController();
+
+  $companyData = $obj_company -> select_company_controller();
+
+
+  ?>
 
 <!--CONTENT-->
 <div class="container-fluid">
@@ -91,4 +100,10 @@
             <button type="submit" class="btn btn-raised btn-success btn-sm"><i class="fas fa-sync-alt"></i> &nbsp; ACTUALIZAR</button>
         </p>
     </form>
+</div>
+
+<div class="alert alert-danger text-center" role="alert">
+    <p><i class="fas fa-exclamation-triangle fa-5x"></i></p>
+    <h4 class="alert-heading">¡Ocurrió un error inesperado!</h4>
+    <p class="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
 </div>

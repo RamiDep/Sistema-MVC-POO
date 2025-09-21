@@ -5,7 +5,7 @@
         require_once("./models/companyModel.php");         
     }
 
-    class CompanyCotroller extends CompanyModel{
+    class CompanyController extends CompanyModel{
         public function select_company_controller(){
             return CompanyModel :: select_company_model(); 
         }
