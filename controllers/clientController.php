@@ -344,4 +344,156 @@
         }
          /* video 55*/
 
+        /**VIDEO 61 */ 
+        public function update_client_controller(){
+            $id_client = MainModel :: decryption($_POST['id_client_update']);
+            $id_client = MainModel :: clearString($_POST['id_client_update']);
+
+            $get_data = MainModel :: setConsult("SELECT * FROM cliente WHERE cliente_id = '$id_client'");
+                        
+            if ($get_data -> rowCount() <= 0){
+                    $alert = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"No se encuentra ese cliente en la base de datos",
+                        "Type"=>"error"
+                    ];
+                echo json_encode($alert);
+                exit();
+            }
+            $data = $get_data -> fetch();
+
+            $dni = MainModel:: clearString($_POST['client_dni_up']);
+            $name = MainModel:: clearString($_POST['client_name_up']);
+            $lastName = MainModel:: clearString($_POST['client_lastname_up']);
+            $phone = MainModel:: clearString($_POST['client_phone_up']);
+            $adress = MainModel:: clearString($_POST['client_adress_up']);
+
+
+            if (empty($dni) || empty($name) || empty($lastName) || empty($phone) || empty($adress)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No has llenado todos los campos, intentalo de nuevo",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if (MainModel :: checkData("[0-9\-]{1,20}",$dni)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DNI",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if (MainModel :: checkData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}",$name)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo NOMBRE",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+            if (MainModel :: checkData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}",$lastName)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo APELLIDO",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if (MainModel :: checkData("[0-9\-]{1,10}",$phone)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo TELEFONO",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if (MainModel :: checkData("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.\-#\/]{1,190}$",$adress)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DIRECCION",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if ($dni != $data['cliente_dni']){
+                $check_dni = MainModel :: setConsult("SELECT cliente_dni FROM cliente WHERE cliente_dni = '$dni'");
+                if ($check_dni -> rowCount() >= 0){
+                    $alert = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"El dni ". $dni." ya esta registrado en el sistema.",
+                        "Type"=>"error"
+                    ];
+                    echo json_encode($alert);
+                    exit();
+                }
+            }
+
+            session_start(['name'=>'ITM']);
+            if ($_SESSION['privile_itm'] < 1 || $_SESSION['privile_itm'] > 2){ 
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No cuentas con los permisos necesarios.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+                
+            }
+
+            
+
+            $setData = [
+                "DNI" => $dni,
+                "NAME" => $name,
+                "LASTNAME" => $lastName,
+                "PHONE" => $phone,
+                "ADRESS" => $adress,
+                "ID" => $id_client
+            ];
+
+            $insert = ClientModel :: update_client_model($setData);
+
+            if ($insert -> rowCount() == 1){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Cliente actualizado",
+                    "Text"=>"Se actualizo correctamente el cliente",
+                    "Type"=>"success"
+                ];
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se pudo actualizar el cliente, intente nuevamente.",
+                    "Type"=>"error"
+                ];   
+            }
+            
+            echo json_encode($alert);
+
+        } 
+        /**FIN VIDEO 61 */
+
     }

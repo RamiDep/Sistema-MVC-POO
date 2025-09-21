@@ -84,7 +84,7 @@
                 </li>
                 <?php }?>
                 <li>
-                    <a href="company.html"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
+                    <a href="<?= serverUrl?>company"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Empresa</a>
                 </li>
             </ul>
         </nav>

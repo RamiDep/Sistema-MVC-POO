@@ -2,7 +2,8 @@
     $ajaxRequest = true;
     require_once "../config/App.php";
     
-    if(isset($_POST['client_dni_add']) || isset($_POST['client_name_add']) || isset($_POST['id_client_delete']) || isset($_POST['id_client_update'])){
+    if(isset($_POST['client_dni_add']) || isset($_POST['client_name_add']) 
+        || isset($_POST['id_client_delete']) || isset($_POST['id_client_update'])){
         require_once("../controllers/clientController.php");
         $object_client = new ClientController();
 
@@ -18,7 +19,7 @@
 
         /*Actializar cliente */
         if (isset($_POST['id_client_update'])){
-            echo $object_client -> delete_client_controller();
+            echo $object_client -> update_client_controller();
         }
 
     }else{

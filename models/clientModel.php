@@ -41,4 +41,35 @@
             return $get_client_data;
         }
         /*Fin video 58 */
+
+        /** 
+         * Video 60
+         * MODELO PARA ACTUALIZAR USUARIOS */
+
+        protected static function update_client_model($data_client){
+            $sqlUpdate_client = MainModel :: connection()->prepare("UPDATE cliente set 
+                                    cliente_dni = :Dni,
+                                    cliente_nombre = :Name_,
+                                    cliente_apellido = :LastName,
+                                    cliente_telefono = :Telephone,
+                                    cliente_direccion = :Adress
+                                    WHERE cliente_id = :Id
+
+            ");
+            
+            $sqlUpdate_client->bindParam(":Dni", $data_client['DNI']);
+            $sqlUpdate_client->bindParam(":Name_", $data_client['NAME']);
+            $sqlUpdate_client->bindParam(":LastName", $data_client['LASTNAME']);
+            $sqlUpdate_client->bindParam(":Telephone", $data_client['PHONE']);
+            $sqlUpdate_client->bindParam(":Adress", $data_client['ADRESS']);
+            $sqlUpdate_client->bindParam(":Id", $data_client['ID']);
+
+            $sqlUpdate_client->execute();
+
+            return $sqlUpdate_client;
+
+        }
+        /**
+         * Video 60 FIN
+         */
     }

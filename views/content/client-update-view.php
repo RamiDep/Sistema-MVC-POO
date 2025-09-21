@@ -42,8 +42,8 @@
         if ($data_client -> rowCount() == 1){
             $data = $data_client->fetch();
     ?>
-    <form action="<?php echo serverUrl;?>ajax/clientAjax.php" class="form-neon ajaxForm" autocomplete="off" data-form="update">
-        <input type="hidden" name="id_client_update" value="">
+    <form class="form-neon ajaxForm" action="<?php echo serverUrl;?>ajax/clientAjax.php"  autocomplete="off" data-form="update" method="POST">
+        <input type="hidden" name="id_client_update" value="<?= $data['cliente_id']?>">
         <fieldset>
             <legend><i class="fas fa-user"></i> &nbsp; Información básica</legend>
             <div class="container-fluid">
@@ -51,31 +51,31 @@
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="cliente_dni" class="bmd-label-floating">DNI</label>
-                            <input type="text"  pattern="[0-9-]{1,27}" value="<?= $data['cliente_dni'] ?>" class="form-control" name="cliente_dni_up" id="cliente_dni" maxlength="27">
+                            <input type="text"  pattern="[0-9\-]{1,20}" value="<?= $data['cliente_dni'] ?>" class="form-control" name="client_dni_up" id="client_dni" maxlength="27">
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="cliente_nombre" class="bmd-label-floating">Nombre</label>
-                            <input type="text" value="<?= $data['cliente_nombre'] ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}" class="form-control" name="cliente_nombre_up" id="cliente_nombre" maxlength="40">
+                            <input type="text" value="<?= $data['cliente_nombre'] ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control" name="client_name_up" id="cliente_nombre" maxlength="40">
                         </div>
                     </div>
                     <div class="col-12 col-md-4">
                         <div class="form-group">
                             <label for="cliente_apellido" class="bmd-label-floating">Apellido</label>
-                            <input type="text" value="<?= $data['cliente_apellido'] ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}" class="form-control" name="cliente_apellido_up" id="cliente_apellido" maxlength="40">
+                            <input type="text" value="<?= $data['cliente_apellido'] ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" class="form-control" name="client_lastname_up" id="cliente_apellido" maxlength="40">
                         </div>
                     </div>
                     <div class="col-12 col-md-4">
                         <div class="form-group">
                             <label for="cliente_telefono" class="bmd-label-floating">Teléfono</label>
-                            <input type="text" value="<?= $data['cliente_telefono'] ?>" pattern="[0-9()+]{8,20}" class="form-control" name="cliente_telefono_up" id="cliente_telefono" maxlength="20">
+                            <input type="text" value="<?= $data['cliente_telefono'] ?>" pattern="[0-9\-]{1,10}" class="form-control" name="client_phone_up" id="cliente_telefono" maxlength="20">
                         </div>
                     </div>
                     <div class="col-12 col-md-4">
                         <div class="form-group">
                             <label for="cliente_direccion" class="bmd-label-floating">Dirección</label>
-                            <input type="text" value="<?= $data['cliente_direccion'] ?>" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,150}" class="form-control" name="cliente_direccion_up" id="cliente_direccion" maxlength="150">
+                            <input type="text" value="<?= $data['cliente_direccion'] ?>" pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.\-#\/]{1,190}$" class="form-control" name="client_adress_up" id="cliente_direccion" maxlength="150">
                         </div>
                     </div>
                 </div>
