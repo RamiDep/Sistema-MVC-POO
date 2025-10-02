@@ -41,13 +41,13 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="empresa_telefono" class="bmd-label-floating">Telefono</label>
-                                <input type="text" pattern="[0-9()+]{8,20}" class="form-control" name="company_telefono" id="empresa_telefono" maxlength="20">
+                                <input type="text" pattern="[0-9\-]{1,10}" class="form-control" name="company_telefono" id="empresa_telefono" maxlength="20">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="empresa_direccion" class="bmd-label-floating">Dirección</label>
-                                <input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="company_adress" id="empresa_direccion" maxlength="190">
+                                <input type="text" pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.\-#\/]{1,190}$" class="form-control" name="company_adress" id="empresa_direccion" maxlength="190">
                             </div>
                         </div>
                     </div>
