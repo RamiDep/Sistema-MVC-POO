@@ -18,7 +18,6 @@
             $adress_company = MainModel :: clearString($_POST['company_adress']);
 
 
-
             if (empty($name_company) || empty($email_company) || empty($phone_company) || empty($adress_company)){
                 $alert = [
                     "Alerta"=>"simple",
