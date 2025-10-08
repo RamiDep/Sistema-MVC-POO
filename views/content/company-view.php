@@ -61,7 +61,7 @@
             </p>
         </form>
     </div>
-  <?php } else if($companyData -> rowCount() == 1 && ($_SESSION['ITM_PRIVILE'] == 1 || $_SESSION['ITM_PRIVILE'] == 2){ 
+  <?php } else if($companyData -> rowCount() == 1 && ($_SESSION['privile_itm'] == 1 || $_SESSION['privile_itm'] == 2)){ 
 
         $company = $companyData -> fetch();
     ?>

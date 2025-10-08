@@ -75,7 +75,7 @@
 
             $check_exist_company = MainModel :: setConsult("SELECT * FROM empresa");
             if ($check_exist_company -> rowCount() > 0){
-                 $alert = [
+                $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
                     "Text"=>"Ya existe una empresa en el sistema..",
@@ -84,6 +84,32 @@
                 echo json_encode($alert);
                 exit();
             }
+
+            $setData = [
+                "name" => $name_company, 
+                "email" => $email_company,
+                "phone" => $phone_company,
+                "adress" => $adress_company
+            ];
+
+            $insertCompany = CompanyModel :: add_company_model($setData);
+            
+            if($insertCompany -> rowCount() == 1){
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Exito",
+                    "Text"=>"Se ha insertado correctamente la empresa",
+                    "Type"=>"success"
+                ];
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha podido registrar la empresa, por favor intente nuevamente",
+                    "Type"=>"error"
+                ];
+            }
+            echo json_encode($alert);
 
         }
     }
