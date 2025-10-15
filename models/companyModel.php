@@ -22,4 +22,19 @@ require_once("mainModel.php");
             $company -> execute();
             return $company;
         }
+
+        protected function update_company_model($company_data){
+            $update_company = MainModel :: connection()->prepare(
+            "UPDATE empresa SET empresa_nombre :NAME_, empresa_email :EMAIL,
+            empresa_telefono :PHONE, empresa_direccion :ADRESS
+            ");
+
+            $update_company -> bindParam(":NAME_", $company_data['NAME']);
+            $update_company -> bindParam(":EMAIL", $company_data['EMAIL']);
+            $update_company -> bindParam(":PHONE", $company_data['PHONE']);
+            $update_company -> bindParam(":ADRESS", $company_data['ADRESS']);
+            $update_company->execute();
+            
+            return $update_company;
+        }
     }
