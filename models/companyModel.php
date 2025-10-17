@@ -29,10 +29,10 @@ require_once("mainModel.php");
             empresa_telefono :PHONE, empresa_direccion :ADRESS
             ");
 
-            $update_company -> bindParam(":NAME_", $company_data['NAME']);
-            $update_company -> bindParam(":EMAIL", $company_data['EMAIL']);
-            $update_company -> bindParam(":PHONE", $company_data['PHONE']);
-            $update_company -> bindParam(":ADRESS", $company_data['ADRESS']);
+            $update_company -> bindParam(":NAME_", $company_data['name']);
+            $update_company -> bindParam(":EMAIL", $company_data['email']);
+            $update_company -> bindParam(":PHONE", $company_data['phone']);
+            $update_company -> bindParam(":ADRESS", $company_data['adress']);
             $update_company->execute();
             
             return $update_company;
