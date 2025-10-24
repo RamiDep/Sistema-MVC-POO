@@ -115,7 +115,7 @@
 
         public function update_company_controller(){
             $id_company = MainModel :: clearString($_POST['id_company_update']);
-            $id_company = MainModel :: encryption($id_company);
+            // $id_company = MainModel :: encryption($id_company);
 
             $exist_company = MainModel :: setConsult("SELECT empresa_id FROM empresa WHERE empresa_id = '$id_company'");
 
@@ -197,7 +197,8 @@
                 "name" => $name_company, 
                 "email" => $email_company,
                 "phone" => $phone_company,
-                "adress" => $adress_company
+                "adress" => $adress_company,
+                "id" => $id_company
             ];
 
             $updateCompany = CompanyModel :: update_company_model($setData);
