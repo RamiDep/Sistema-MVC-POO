@@ -192,7 +192,18 @@
                 exit();
             }
 
-            
+            session_start(['name'=>'ITM']);
+            if ($_SESSION['privile_itm'] != 1 || $_SESSION['privile_itm'] != 2){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No cuentas con los permisos para modificar la empresa.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
             $setData = [
                 "name" => $name_company, 
                 "email" => $email_company,
