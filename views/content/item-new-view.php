@@ -24,7 +24,8 @@
 
 <!--CONTENT-->
 <div class="container-fluid">
-    <form action="" class="form-neon" autocomplete="off">
+    <form action="<?= serverUrl?>ajax/itemAjax.php" class="form-neon ajaxForm" method="POST" data-form="save" autocomplete="off">
+        <input type="hidden" name="add_item">
         <fieldset>
             <legend><i class="far fa-plus-square"></i> &nbsp; Información del item</legend>
             <div class="container-fluid">
