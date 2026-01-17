@@ -9,7 +9,8 @@
                 (:CODE, :NAME_, :STOCK, :STATUS_, :DETAILS)");
             $insertItem->bindParam(":CODE", $data['code']);
             $insertItem->bindParam(":NAME_", $data['name']);
-            $insertItem->bindParam(":STOCK", $data['status']);
+            $insertItem->bindParam(":STOCK", $data['stock']);
+            $insertItem->bindParam(":STATUS_", $data['status']);
             $insertItem->bindParam(":DETAILS", $data['details']);
             $insertItem -> execute();
             
