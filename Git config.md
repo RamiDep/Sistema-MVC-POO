@@ -23,10 +23,9 @@
 *git checkout -nombreRamagi-*
 
 # Actualizar cambios en mi repositorio (completo)
+actualizar tu repositorio local con los cambios más recientes de un repositorio remoto
 *git pull*
 
-# Actualizar cambios en mi repositorio (incompleto)
-*git pull*
 # Actualizar cambios en mi ordenador
 *git merge*
 
