@@ -1,4 +1,10 @@
 <!-- Page header -->
+<?php
+/*error_reporting(E_ALL);
+ini_set("display_errors", 1);*/
+ 
+?>
+
 <div class="full-box page-header">
     <h3 class="text-left">
         <i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR ITEM
@@ -22,15 +28,18 @@
     </ul>
 </div>
 
+<?php if(!isset($_SESSION['search_items']) && empty($_SESSION['search_items'])) { ?>
+
 <!--CONTENT-->
 <div class="container-fluid">
-    <form class="form-neon" action="">
+    <form class="form-neon ajaxForm" action="<?= serverUrl ?>ajax/searchAjax.php" method="POST" data-form="default" >
+         <input type="hidden" name="modulo" value="items">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="inputSearch" class="bmd-label-floating">¿Qué item estas buscando?</label>
-                        <input type="text" class="form-control" name="busqueda-" id="inputSearch" maxlength="30">
+                        <input type="text" class="form-control" name="search_object" id="item-searched" maxlength="30">
                     </div>
                 </div>
                 <div class="col-12">
@@ -42,15 +51,17 @@
         </div>
     </form>
 </div>
+<?php }else{ ?>
 
 <div class="container-fluid">
-    <form action="">
-        <input type="hidden" name="eliminar-busqueda" value="eliminar">
+    <form class="form-neon ajaxForm" action="<?= serverUrl ?>ajax/searchAjax.php" data-form="delete" method="POST" autocomplete="" >
+        <input type="hidden" name="delete_search" value="delete">
+        <input type="hidden" name="modulo" value="items">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-6">
                     <p class="text-center" style="font-size: 20px;">
-                        Resultados de la busqueda <strong>“Buscar”</strong>
+                        Resultados de la busqueda <strong>“<?= $_SESSION['search_items']?>”</strong>
                     </p>
                 </div>
                 <div class="col-12">
@@ -64,126 +75,11 @@
 </div>
 
 <div class="container-fluid">
-    <div class="table-responsive">
-        <table class="table table-dark table-sm">
-            <thead>
-                <tr class="text-center roboto-medium">
-                    <th>#</th>
-                    <th>CÓDIGO</th>
-                    <th>NOMBRE</th>
-                    <th>STOCK</th>
-                    <th>DETALLE</th>
-                    <th>ACTUALIZAR</th>
-                    <th>ELIMINAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-center" >
-                    <td>1</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL ITEM</td>
-                    <td>20</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Titulo del item" data-content="Texto detalle del item ">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="item-update.html" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i> 
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>2</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL ITEM</td>
-                    <td>57</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Titulo del item" data-content="Texto detalle del item ">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>item-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i> 
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>3</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL ITEM</td>
-                    <td>81</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Titulo del item" data-content="Texto detalle del item ">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>item-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i> 
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                <tr class="text-center" >
-                    <td>4</td>
-                    <td>012342567</td>
-                    <td>NOMBRE DEL ITEM</td>
-                    <td>90</td>
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Titulo del item" data-content="Texto detalle del item ">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <a href="<?= serverUrl ?>item-update/" class="btn btn-success">
-                            <i class="fas fa-sync-alt"></i> 
-                        </a>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button type="button" class="btn btn-warning">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+   <?php 
+        require_once("./controllers/itemController.php");
+        $obj_item = new ItemController();
+        echo $obj_item -> pager_item_controller($page[1], 15, $_SESSION['privile_itm'], $page[0], $_SESSION['search_items']);
+   ?>
+   <?php ?>
 </div>
+<?php } ?>

@@ -150,9 +150,9 @@
             }else{
                 $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM cliente 
                 ORDER BY cliente_nombre ASC LIMIT $index, $record";
-                //  var_dump($querySearch);
+                // 
             }
-
+            // var_dump($querySearch);
             $connect = MainModel :: connection();
 
             $data = $connect -> query($querySearch);

@@ -144,15 +144,15 @@
             if(isset($search) && $search != ""){
                 $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM item 
                   WHERE (item_codigo LIKE '%$search%'
-                    OR item_nombre LIKE '%$search%' 
-                  ORDER BY item_codigo ASC LIMIT $index, $record    
+                    OR item_nombre LIKE '%$search%') 
+                  ORDER BY item_nombre ASC LIMIT $index, $record    
                 ";
             }else{
                 $querySearch ="SELECT SQL_CALC_FOUND_ROWS * FROM item 
-                ORDER BY item_codigo ASC LIMIT $index, $record";
-                //  var_dump($querySearch);
+                ORDER BY item_nombre ASC LIMIT $index, $record";
+                
             }
-
+//   var_dump($querySearch);
             $connect = MainModel :: connection();
 
             $data = $connect -> query($querySearch);
@@ -259,6 +259,8 @@
             return $table;
 
         } //
+
+        
 
 
 
