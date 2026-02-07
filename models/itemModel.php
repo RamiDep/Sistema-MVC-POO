@@ -2,6 +2,7 @@
     require_once ("mainModel.php");
 
     class ItemModel extends MainModel{
+        
         protected function add_item_model($data){
             $insertItem = MainModel :: connection()->prepare("INSERT INTO item
                 (item_codigo, item_nombre, item_stock, item_estado, item_detalle)
@@ -16,4 +17,11 @@
             
             return $insertItem;
         }
+
+        protected function delete_item_model($id){
+            $deleteItem = MainModel :: connection()->prepare("DELETE FROM item WHERE item_id = :ID");
+            $deleteItem -> bindParam(":ID", $id);
+            return $deleteItem -> execute();
+        }
+
     }

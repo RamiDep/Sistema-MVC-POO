@@ -5,7 +5,7 @@
         require_once("./models/itemModel.php");         
     }
 
-    class ItemController extends ItemModel{
+    class ItemController extends ItemModel {
 
         public function add_item_controller(){
         
@@ -152,7 +152,6 @@
                 ORDER BY item_nombre ASC LIMIT $index, $record";
                 
             }
-//   var_dump($querySearch);
             $connect = MainModel :: connection();
 
             $data = $connect -> query($querySearch);
@@ -259,6 +258,56 @@
             return $table;
 
         } //
+
+        public function delete_item_controller(){
+            $id_item = MainModel :: decryption($_POST['id_item_delete']);
+            $id_item = MainModel :: clearString($id_item);
+
+            $check_id = MainModel :: setConsult("SELECT item_id FROM item WHERE item_id = '$id_item'");
+
+            if($check_id -> rowCount() < 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"El item no esta registrado en el sistema.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();   
+            }
+
+            session_start();
+            if( $_SESSION['privile_itm'] != 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No tienes privilegios para hacer la acción.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit(); 
+            }
+
+            $delete_item = ItemModel :: delete_item_model($id_item);
+            if($delete_item -> rowCount() == 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Exito",
+                    "Text"=>"Se ha eliminado correctamente el item",
+                    "Type"=>"success"
+                ];
+            }else{
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se logro realizar la accion, intente nuevamente.",
+                    "Type"=>"error"
+                ];
+            }
+
+            echo json_encode($alerta);
+
+        }
 
         
 
