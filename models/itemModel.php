@@ -21,7 +21,8 @@
         protected function delete_item_model($id){
             $deleteItem = MainModel :: connection()->prepare("DELETE FROM item WHERE item_id = :ID");
             $deleteItem -> bindParam(":ID", $id);
-            return $deleteItem -> execute();
+            $deleteItem -> execute();
+            return $deleteItem;
         }
 
     }

@@ -276,8 +276,9 @@
                 exit();   
             }
 
-            session_start();
-            if( $_SESSION['privile_itm'] != 1){
+            session_start(['name'=>'ITM']);
+            
+            if($_SESSION['privile_itm'] != 1){
                 $alerta = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
