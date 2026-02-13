@@ -32,13 +32,23 @@
             </a>
      <?php }?> 
 
+
+    <?php 
+        require_once ("./controllers/itemController.php");
+        
+        if ($_SESSION['privile_itm'] == 1){
+            $object = new ItemController();
+            $totalItems = $object->show_item_controller(0, 1);
+    ?>
     <a href="<?= serverUrl ?>item-list/" class="tile">
         <div class="tile-tittle">Items</div>
         <div class="tile-icon">
             <i class="fas fa-pallet fa-fw"></i>
-            <p>9 Registrados</p>
+            <p><?= $totalItems -> rowCount() ?> Registrados</p>
         </div>
     </a>
+
+    <?php } ?>
 
     <a href="<?= serverUrl ?>reservation-reservation/" class="tile">
         <div class="tile-tittle">Reservaciones</div>

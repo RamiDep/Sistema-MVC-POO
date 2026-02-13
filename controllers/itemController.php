@@ -310,6 +310,34 @@
 
         }
 
+        public function show_item_controller($type, $id_item){
+            $type = mainModel :: clearString($type);
+            $id = mainModel :: decryption($id_item);
+            $id = mainModel :: clearString($id_item);
+            return ItemModel :: show_item_model($type, $id);
+        }
+
+        public function update_item_controller(){
+            $id_item = MainModel :: decryption($_POST['update_id_item']);
+            $id_item = MainModel :: clearString($id_item);
+
+            $check_id = MainModel :: setConsult("SELECT id_item FROM item WHERE id_item = '$id_item'");
+
+            if($check_id -> rowCount() < 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encontrado el id en el sistema, por favor intente nuevamente.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            $dni = MainModel :: clearString($_POST['']);
+
+        }
+
         
 
 

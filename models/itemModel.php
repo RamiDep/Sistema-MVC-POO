@@ -25,4 +25,33 @@
             return $deleteItem;
         }
 
+        protected function show_item_model($type, $id_item){
+            if ($type == 1){
+                $select_items = MainModel :: connection() -> prepare("SELECT * FROM item WHERE item_id == :ID");
+                $select_items -> bindParam($id_item, ":ID");
+            }else{
+                $select_items = MainModel :: connection() -> prepare("SELECT * FROM item");                
+            }
+            $select_items->execute();
+            return $select_items;
+        }
+
+        protected function update_item_model($id_item){
+            $update_item = MainModel :: connection()->prepare(
+                "UPDATE item SET item_codigo = :CODE, 
+                    item_nombre = :NAME_,
+                    item_stock = :STOCK,                    
+                    item_estado = :STATUS_,
+                    item_detalle = :DETAILS
+                WHERE item_id = :ID
+                ");
+            $update_item->bindParam(":CODE", $data['code']);
+            $update_item->bindParam(":NAME_", $data['name']);
+            $update_item->bindParam(":STOCK", $data['stock']);
+            $update_item->bindParam(":STATUS_", $data['status']);
+            $update_item->bindParam(":DETAILS", $data['details']);
+            $update_item->bindParam(":ID", $id_item);
+            return $update_item;
+        }
+
     }
