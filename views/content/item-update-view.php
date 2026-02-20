@@ -1,3 +1,9 @@
+<?php 
+    if($_SESSION['privile_itm'] < 1 || $_SESSION['privile_itm'] > 2){
+        $lc->closet_session();
+    }
+?>
+
 <!-- Page header -->
 <div class="full-box page-header">
     <h3 class="text-left">
@@ -23,12 +29,19 @@
 </div>
 
 <?php 
-    
+    require_once("./controllers/itemController.php");
+    $objectItem = new ItemController();
+
+    $data_item = show_item_controller(1, $lc->decryption($page[1]));
+    if ($data_client -> rowCount() == 1){
+            $data = $data_item->fetch();
+
 ?>
 
 <!--CONTENT-->
 <div class="container-fluid">
-    <form action="" class="form-neon" autocomplete="off">
+    <form action="<?= serverUrl?>ajax/itemAjax.php" class="form-neon ajaxForm" data-form="update" autocomplete="off">
+        <input type="hidden" class="form-control" value="<?= $data['item_id']?>" name="id_item_update" id="id_item_update" >
         <fieldset>
             <legend><i class="far fa-plus-square"></i> &nbsp; Información del item</legend>
             <div class="container-fluid">

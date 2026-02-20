@@ -459,7 +459,7 @@
                 ];
                 echo json_encode($alert);
                 exit();
-                
+
             }
 
             

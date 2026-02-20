@@ -321,25 +321,139 @@
             $id_item = MainModel :: decryption($_POST['update_id_item']);
             $id_item = MainModel :: clearString($id_item);
 
-            $check_id = MainModel :: setConsult("SELECT id_item FROM item WHERE id_item = '$id_item'");
+            $check_id = MainModel :: setConsult("SELECT * FROM item WHERE id_item = '$id_item'");
 
             if($check_id -> rowCount() < 1){
-                $alerta = [
+                $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
                     "Text"=>"No se ha encontrado el id en el sistema, por favor intente nuevamente.",
                     "Type"=>"error"
                 ];
-                echo json_encode($alerta);
+                echo json_encode($alert);
                 exit();
             }
 
-            $dni = MainModel :: clearString($_POST['']);
+            $item_data = $check_id -> fetch();
+
+            $dni = MainModel :: clearString($_POST['item_codigo_up']);
+            $name = MainModel :: clearString($_POST['item_nombre_up']);
+            $stock = MainModel :: clearString($_POST['item_stock']);
+            $details = MainModel :: clearString($_POST['item_detalle_up']);
+            $status = MainModel :: clearString($_POST['item_estado_up']);
+            
+            if (empty($dni) || empty($name) || empty($stock) ||empty($details) || empty($status)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No has llenado todos los campos que son obligatorios",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if (MainModel :: checkData("[a-zA-Z0-9-]{1,45}",$dni)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo CODIGO",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+            
+            if (MainModel :: checkData("[a-zA-záéíóúÁÉÍÓÚñÑ0-9 ]{1,140}",$name)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo NOMBRE",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }          
+            
+            if (MainModel :: checkData("[0-9]{1,9}",$stock)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo STOCK",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }     
+            
+            if (MainModel :: checkData("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}",$details)){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DETALLES",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if($dni != $item_data['codigo_item']){
+                $check_dni = MainModel :: setConsult("SELECT * FROM item WHERE item_codigo = '$dni'");
+                if($check_dni > 0){
+                    $alert = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"Ya existe un item con el mismo codigo.",
+                        "Type"=>"error"
+                    ];
+                    echo json_encode($alert);
+                    exit(); 
+                }
+            }
+
+            session_start(['name' => 'ITM']);
+            if($_SESSION['privile_itm'] > 2){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No tienes privilegios para actualizar items.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit(); 
+            }
+
+
+            $data_item = [
+                "code" => $dni,
+                "name" => $name,
+                "stock" => $stock,
+                "status" => $status,
+                "details" => $details,
+                "id_item" => $id_item
+            ];
+
+            $update_item = ItemModel :: update_item_model($data_item);
+            if($update_item -> rowCount()){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Exito",
+                    "Text"=>"Se ha actualizado correctamente.",
+                    "Type"=>"success"
+                ];
+                
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No tienes privilegios para actualizar items.",
+                    "Type"=>"error"
+                ];
+                              
+            }
+            
+            echo json_encode($alert); 
 
         }
-
-        
-
-
 
     }

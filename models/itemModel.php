@@ -36,7 +36,7 @@
             return $select_items;
         }
 
-        protected function update_item_model($id_item){
+        protected function update_item_model($data){
             $update_item = MainModel :: connection()->prepare(
                 "UPDATE item SET item_codigo = :CODE, 
                     item_nombre = :NAME_,
@@ -50,7 +50,7 @@
             $update_item->bindParam(":STOCK", $data['stock']);
             $update_item->bindParam(":STATUS_", $data['status']);
             $update_item->bindParam(":DETAILS", $data['details']);
-            $update_item->bindParam(":ID", $id_item);
+            $update_item->bindParam(":ID", $data['id_item']);
             return $update_item;
         }
 

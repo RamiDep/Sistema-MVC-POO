@@ -19,6 +19,10 @@
             echo $objItemController->delete_item_controller();
         }
 
+        if(isset($_POST["id_item_update"])){
+            echo $objItemController->update_item_controller();
+        }
+
     }else{
         session_start(["name" => 'Error']);
         session_unset();
