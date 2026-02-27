@@ -27,8 +27,8 @@
 
         protected function show_item_model($type, $id_item){
             if ($type == 1){
-                $select_items = MainModel :: connection() -> prepare("SELECT * FROM item WHERE item_id == :ID");
-                $select_items -> bindParam($id_item, ":ID");
+                $select_items = MainModel :: connection() -> prepare("SELECT * FROM item WHERE item_id = :ID");
+                $select_items -> bindParam(":ID", $id_item);
             }else{
                 $select_items = MainModel :: connection() -> prepare("SELECT * FROM item");                
             }
@@ -51,6 +51,7 @@
             $update_item->bindParam(":STATUS_", $data['status']);
             $update_item->bindParam(":DETAILS", $data['details']);
             $update_item->bindParam(":ID", $data['id_item']);
+            $update_item ->execute();
             return $update_item;
         }
 

@@ -4,7 +4,7 @@
     require_once "../config/App.php";
 
     
-    if(isset($_POST["add_item"]) || isset($_POST["id_item_delete"])){
+    if(isset($_POST["add_item"]) || isset($_POST["id_item_delete"]) || isset($_POST["id_item_update"])){
         //----------------INSTANCIA AL CONTROLADOR 
     
         require_once "../controllers/itemController.php";

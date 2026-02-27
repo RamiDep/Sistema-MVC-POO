@@ -318,10 +318,10 @@
         }
 
         public function update_item_controller(){
-            $id_item = MainModel :: decryption($_POST['update_id_item']);
+            $id_item = MainModel :: decryption($_POST['id_item_update']);
             $id_item = MainModel :: clearString($id_item);
 
-            $check_id = MainModel :: setConsult("SELECT * FROM item WHERE id_item = '$id_item'");
+            $check_id = MainModel :: setConsult("SELECT * FROM item WHERE item_id = '$id_item'");
 
             if($check_id -> rowCount() < 1){
                 $alert = [
@@ -338,7 +338,7 @@
 
             $dni = MainModel :: clearString($_POST['item_codigo_up']);
             $name = MainModel :: clearString($_POST['item_nombre_up']);
-            $stock = MainModel :: clearString($_POST['item_stock']);
+            $stock = MainModel :: clearString($_POST['item_stock_up']);
             $details = MainModel :: clearString($_POST['item_detalle_up']);
             $status = MainModel :: clearString($_POST['item_estado_up']);
             
@@ -353,7 +353,7 @@
                 exit();
             }
 
-            if (MainModel :: checkData("[a-zA-Z0-9-]{1,45}",$dni)){
+            if (MainModel :: checkData("[0-9\-]{1,20}",$dni)){
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
@@ -364,7 +364,7 @@
                 exit();
             }
             
-            if (MainModel :: checkData("[a-zA-záéíóúÁÉÍÓÚñÑ0-9 ]{1,140}",$name)){
+            if (MainModel :: checkData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}",$name)){
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
@@ -397,7 +397,7 @@
                 exit();
             }
 
-            if($dni != $item_data['codigo_item']){
+            if($dni != $item_data['item_codigo']){
                 $check_dni = MainModel :: setConsult("SELECT * FROM item WHERE item_codigo = '$dni'");
                 if($check_dni > 0){
                     $alert = [
@@ -411,8 +411,9 @@
                 }
             }
 
-            session_start(['name' => 'ITM']);
-            if($_SESSION['privile_itm'] > 2){
+            // session_start(['name' => 'ITM']);
+             session_start(['name'=>'ITM']);
+            if($_SESSION['privile_itm'] < 1 || $_SESSION['privile_itm'] > 2){
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
@@ -446,7 +447,7 @@
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"No tienes privilegios para actualizar items.",
+                    "Text"=>"No se pudo actualizar el Item, por favor intente nuevamente.",
                     "Type"=>"error"
                 ];
                               
