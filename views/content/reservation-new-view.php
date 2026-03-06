@@ -394,3 +394,8 @@
         </form>
     </div>
 </div>
+
+<?php 
+    include_once("./views/inc/reservation.php"); //Video 82
+
+?>
