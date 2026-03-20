@@ -1,7 +1,7 @@
 <script>
+    /* ------- BOTON PARA BUSCAR CLIENTES ----------*/
     function validateBtnSearch(){
         let valor_input = document.querySelector("#input_cliente").value;
-
         valor_input = valor_input.trim();
         if(valor_input !== ""){
             let data = new FormData();
@@ -22,5 +22,34 @@
                 confirmButtonText: 'Aceptar'
             });
         }
+    }
+
+    /* ------- BOTON PARA BUSCAR CLIENTES ----------*/
+    function add_client_reservation(id){
+        $('#ModalCliente').modal('hide');
+        Swal.fire({
+            title: '¿Quieres agregar este cliente?',
+            text: 'Se va agregar para un prestamo',
+            type: 'question',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            showCancelButton: true,
+            confirmButtonColor: "#237aca",
+            cancelButtonColor: "#d33",
+        }).then((result) => { 
+            if(result.value){
+                let data = new FormData();
+                data.append("id_client_loan", id);
+                fetch("<?= serverUrl ?>/ajax/loanAjax.php",{
+                    method: 'POST',
+                    body: data
+                }).then(response => response.json())
+                .then(response => {
+                    return ajaxAlert(response);
+                });
+            }else{
+                $('#ModalCliente').modal('show');
+            }
+        });
     }
 </script>

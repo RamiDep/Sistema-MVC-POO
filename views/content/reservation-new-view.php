@@ -230,32 +230,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="container-fluid" id="client_table">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered table-sm">
-                            <tbody>
-                                <tr class="text-center">
-                                    <td>0000000000 - Nombre del cliente</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>0000000000 - Nombre del cliente</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>0000000000 - Nombre del cliente</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="container-fluid" id="client_table"></div>
                 
             </div>
             <div class="modal-footer">

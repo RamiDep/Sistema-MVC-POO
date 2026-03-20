@@ -26,7 +26,24 @@
                                 cliente_telefono LIKE '%$search%'
                                 ORDER BY cliente_nombre ASC ");
             if($check_client -> rowCount() > 0){
+                
+                $data = $check_client ->fetchAll();
 
+                $table = '<div class="table-responsive">
+                            <table class="table table-hover table-bordered table-sm">
+                                <tbody>';
+                foreach($data as $client){
+                    $table .= '<tr class="text-center">
+                                    <td>'.$client['cliente_dni'].' - '.$client['cliente_nombre'].' - '.$client['cliente_apellido'].'</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus" onclick="add_client_reservation('.$client['cliente_id'].')"></i></button>
+                                    </td>
+                                </tr>';
+                }                
+                $table .= '</tbody>
+                        </table>
+                    </div>';
+                return $table;
             }else{
                  return '<div class="alert alert-warning" role="alert">
                             <p class="text-center mb-0">
