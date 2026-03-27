@@ -45,6 +45,7 @@
                     body: data
                 }).then(response => response.json())
                 .then(response => {
+                    console.log(response);
                     return ajaxAlert(response);
                 });
             }else{

@@ -6,6 +6,7 @@
     }
 
     class LoanController extends LoanModel {
+        
         public function search_client_loan_controller(){
             $search = MainModel :: clearString($_POST['search_client']);
 
@@ -52,6 +53,51 @@
                             </p>
                         </div>';
                 exit();  
+            }
+        }
+
+        public function add_client_loan_controller(){
+            $id_client = MainModel :: clearString($_POST['id_client_loan']);
+           
+            $check_client = MainModel :: setConsult("SELECT * FROM cliente WHERE cliente_id = '$id_client'");
+            
+            if($check_client -> rowCount() < 1){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encotrado el cliente con id: ".$id_client.", por favor intente nuevamente.",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }else
+                $datos = $check_client->fetch();
+
+            session_start(['name' => 'ITM']);
+            if(empty($_SESSION['data_client'])){
+                $_SESSION['data_client'] = [
+                    "ID" => $datos['cliente_id'],
+                    "DNI" => $datos['cliente_dni'],
+                    "NAME" => $datos['cliente_nombre'],
+                    "LASTNAME" => $datos['cliente_apellido']
+                ];
+
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Cliente agregado",
+                    "Text"=>"Se agrego correctamente el cliente al prestamo",
+                    "Type"=>"success"
+                ];
+                echo json_encode($alert);
+
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encotrado el cliente",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
             }
         }
 

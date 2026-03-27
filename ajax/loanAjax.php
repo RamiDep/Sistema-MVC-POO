@@ -3,7 +3,7 @@
     $ajaxRequest = true;
     require_once "../config/App.php";
     //video 84
-    if(isset($_POST["search_client"]) || isset($_POST["id_client_reservation"]) ){
+    if(isset($_POST["search_client"]) || isset($_POST["id_client_loan"]) ){
         require_once "../controllers/loanController.php";
         $objLoanController = new LoanController();
         
@@ -12,7 +12,7 @@
         }
         
         if(isset($_POST["id_client_loan"])){
-            echo $objLoanController->search_client_loan_controller(); 
+            echo $objLoanController->add_client_loan_controller(); 
         }
 
     }else{
