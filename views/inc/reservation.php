@@ -1,6 +1,6 @@
 <script>
     /* ------- BOTON PARA BUSCAR CLIENTES ----------*/
-    function validateBtnSearch(){
+    function search_client_loan(){
         let valor_input = document.querySelector("#input_cliente").value;
         valor_input = valor_input.trim();
         if(valor_input !== ""){
@@ -23,6 +23,32 @@
             });
         }
     }
+
+    /* ------- BOTON PARA BUSCAR ITEMS ----------*/
+    function search_item_loan(){
+        let valor_input = document.querySelector("#input_item").value;
+        valor_input = valor_input.trim();
+        if(valor_input !== ""){
+            let data = new FormData();
+            data.append("search_item", valor_input);
+            fetch("<?= serverUrl?>/ajax/loanAjax.php",{
+                method: 'POST',
+                body: data
+            }).then(response => response.text())
+            .then(response => { 
+                let item_table = document.querySelector('#items_table');
+                item_table.innerHTML = response;
+            });
+        }else{
+            Swal.fire({
+                title: "¡Error!",
+                text: "Debes introducir Código o nombre",
+                type: "error",
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    }
+
 
     /* ------- BOTON PARA BUSCAR CLIENTES ----------*/
     function add_client_reservation(id){

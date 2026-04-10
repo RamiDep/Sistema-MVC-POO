@@ -33,15 +33,18 @@
         <div class="container-fluid">
             <p class="text-center roboto-medium">AGREGAR CLIENTE O ITEMS</p>
             <p class="text-center">
+                <?php if(empty($_SESSION['data_client'])){ ?>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fas fa-user-plus"></i> &nbsp; Agregar cliente</button>
+                <?php } ?>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalItem"><i class="fas fa-box-open"></i> &nbsp; Agregar item</button>
             </p>
             <div>
                 <span class="roboto-medium">CLIENTE:</span> 
                 <span class="text-danger">&nbsp; <i class="fas fa-exclamation-triangle"></i> Seleccione un cliente</span>
-                <form action="" style="display: inline-block !important;">
-                    Carlos Alfaro
-                    <button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>
+                <form class="ajaxForm" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="loans" style="display: inline-block !important;">
+                    <input type="hidden" name="id_delete_session" value="<?= $_SESSION['data_client']['ID'] ?? '' ?>">
+                    <?= $_SESSION['data_client']['NAME'] ?? '' ?>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-user-times"></i></button>
                 </form>
             </div>
             <div class="table-responsive">
@@ -234,7 +237,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="validateBtnSearch()"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar</button>
+                <button type="button" class="btn btn-primary" onclick="search_client_loan()"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar</button>
                 &nbsp; &nbsp;
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
@@ -249,7 +252,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalItem">Agregar item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -261,7 +264,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="container-fluid" id="tabla_items">
+                <div class="container-fluid" id="items_table">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-sm">
                             <tbody>
@@ -301,7 +304,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar</button>
+                <button type="button" class="btn btn-primary" onclick="search_item_loan()"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar</button>
                 &nbsp; &nbsp;
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>

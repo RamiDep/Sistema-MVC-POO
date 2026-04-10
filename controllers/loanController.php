@@ -101,4 +101,29 @@
             }
         }
 
+        public function destroy_session_client_controller(){
+            session_start(['name' => 'ITM']);
+            unset($_SESSION['data_client']);
+            if(empty($_SESSION['data_client'])){
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Exito",
+                    "Text"=>"Se elimino el cliente de manera correcta",
+                    "Type"=>"success"
+                ];                
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha podido eliminar el cliente de la session",
+                    "Type"=>"error"
+                ];
+            }
+            echo json_encode($alert);
+        }
+
+        public function search_item_loan_controller(){
+            
+        }
+
     }
