@@ -265,43 +265,9 @@
                 </div>
                 <br>
                 <div class="container-fluid" id="items_table">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered table-sm">
-                            <tbody>
-                                <tr class="text-center">
-                                    <td>000000000000 - Nombre del item</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>000000000000 - Nombre del item</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>000000000000 - Nombre del item</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>000000000000 - Nombre del item</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    
                 </div>
-                <div class="alert alert-warning" role="alert">
-                    <p class="text-center mb-0">
-                        <i class="fas fa-exclamation-triangle fa-2x"></i><br>
-                        No hemos encontrado ningún item en el sistema que coincida con <strong>“Busqueda”</strong>
-                    </p>
-                </div>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="search_item_loan()"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar</button>

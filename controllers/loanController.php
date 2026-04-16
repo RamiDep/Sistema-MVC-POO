@@ -123,7 +123,52 @@
         }
 
         public function search_item_loan_controller(){
-            
+            $search = MainModel :: clearString($_POST['search_item']);
+
+            if(empty($search)){
+                return '<div class="alert alert-warning" role="alert">
+                            <p class="text-center mb-0">
+                                <i class="fas fa-exclamation-triangle fa-2x"></i><br>
+                                Debes introducir Código ó Nombre
+                            </p>
+                        </div>';
+                exit();        
+            }
+
+            $check_item = MainModel :: setConsult("SELECT * FROM cliente WHERE 
+                                cliente_dni LIKE '%$search%' OR
+                                cliente_nombre LIKE '%$search%' OR
+                                cliente_apellido LIKE '%$search%' OR                                
+                                cliente_telefono LIKE '%$search%'
+                                ORDER BY cliente_nombre ASC ");
+            if($check_item -> rowCount() > 0){
+                
+                $data = $check_item ->fetchAll();
+
+                $table = '<div class="table-responsive">
+                            <table class="table table-hover table-bordered table-sm">
+                                <tbody>';
+                foreach($data as $item){
+                    $table .= ' <tr class="text-center">
+                                    <td>'. $item['item_codigo'] . '-'. $item['item_nombre'] .'</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
+                                    </td>
+                                </tr>';
+                }                
+                $table .= '</tbody>
+                        </table>
+                    </div>';
+                return $table;
+            }else{
+                 return '<div class="alert alert-warning" role="alert">
+                            <p class="text-center mb-0">
+                                <i class="fas fa-exclamation-triangle fa-2x"></i><br>
+                                No hemos encontrado ningún cliente en el sistema que coincida con <strong>“'.$search.'”</strong>
+                            </p>
+                        </div>';
+                exit();  
+            }
         }
 
     }
