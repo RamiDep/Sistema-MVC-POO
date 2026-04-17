@@ -264,9 +264,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="container-fluid" id="items_table">
-                    
-                </div>
+                <div class="container-fluid" id="items_table"></div>
                
             </div>
             <div class="modal-footer">

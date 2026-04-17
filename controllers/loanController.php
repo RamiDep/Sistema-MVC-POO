@@ -135,12 +135,11 @@
                 exit();        
             }
 
-            $check_item = MainModel :: setConsult("SELECT * FROM cliente WHERE 
-                                cliente_dni LIKE '%$search%' OR
-                                cliente_nombre LIKE '%$search%' OR
-                                cliente_apellido LIKE '%$search%' OR                                
-                                cliente_telefono LIKE '%$search%'
-                                ORDER BY cliente_nombre ASC ");
+            $check_item = MainModel :: setConsult("SELECT * FROM item WHERE 
+                                (item_codigo LIKE '%$search%' OR
+                                item_nombre LIKE '%$search%') AND
+                                (item_estado = 1)
+                                ORDER BY item_nombre ASC ");
             if($check_item -> rowCount() > 0){
                 
                 $data = $check_item ->fetchAll();
@@ -152,10 +151,15 @@
                     $table .= ' <tr class="text-center">
                                     <td>'. $item['item_codigo'] . '-'. $item['item_nombre'] .'</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-box-open"></i></button>
+                                        <button 
+                                            type="button"
+                                            title="AGREGAR ITEM" 
+                                            class="btn btn-primary"
+                                            onclick="modal_add_item('.$item['item_id'].')"
+                                            ><i class="fas fa-box-open"></i></button>
                                     </td>
                                 </tr>';
-                }                
+                }          
                 $table .= '</tbody>
                         </table>
                     </div>';
@@ -164,7 +168,7 @@
                  return '<div class="alert alert-warning" role="alert">
                             <p class="text-center mb-0">
                                 <i class="fas fa-exclamation-triangle fa-2x"></i><br>
-                                No hemos encontrado ningún cliente en el sistema que coincida con <strong>“'.$search.'”</strong>
+                                No hemos encontrado ningún item en el sistema que coincida con <strong>“'.$search.'”</strong>
                             </p>
                         </div>';
                 exit();  
