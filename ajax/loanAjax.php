@@ -4,7 +4,7 @@
     require_once "../config/App.php";
     //video 84
     if(isset($_POST["search_client"]) || isset($_POST["id_client_loan"]) || isset($_POST['id_delete_session']) 
-        || isset($_POST['search_item'])){
+        || isset($_POST['search_item']) || isset($_POST['id_add_item'])){
         require_once "../controllers/loanController.php";
         $objLoanController = new LoanController();
         
@@ -22,6 +22,10 @@
 
         if(isset($_POST["search_item"])){
             echo $objLoanController->search_item_loan_controller(); 
+        }
+
+        if(isset($_POST['id_add_item'])){
+            echo $objLoanController->add_item_loan_controller();     
         }
 
 

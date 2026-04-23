@@ -50,8 +50,8 @@
     }
 
 
-    /* ------- BOTON PARA BUSCAR CLIENTES ----------*/
-    function add_client_reservation(id){
+    /* ------- BOTON PARA AGREGAR CLIENTES ----------*/
+    function modal_add_client_reservation(id){
         $('#ModalCliente').modal('hide');
         Swal.fire({
             title: '¿Quieres agregar este cliente?',
@@ -71,7 +71,6 @@
                     body: data
                 }).then(response => response.json())
                 .then(response => {
-                    console.log(response);
                     return ajaxAlert(response);
                 });
             }else{
@@ -79,4 +78,17 @@
             }
         });
     }
+
+    function modal_add_item(id){
+        $("#ModalItem").modal('hide');
+        $("#ModalAgregarItem").modal('show');
+        document.querySelector('id_agregar_item').setAttribute("value", id);
+    }
+
+    function modal_search_item(){
+        $("#ModalAgregarItem").modal('hide');
+        $("#ModalItem").modal('show');
+    }
+
+
 </script>

@@ -280,7 +280,7 @@
 <!-- MODAL AGREGAR ITEM -->
 <div class="modal fade" id="ModalAgregarItem" tabindex="-1" role="dialog" aria-labelledby="ModalAgregarItem" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form class="modal-content FormularioAjax">
+        <form class="modal-content FormularioAjax" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="default">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAgregarItem">Selecciona el formato, cantidad de items, tiempo y costo del préstamo del item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -288,7 +288,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="id_agregar_item" id="id_agregar_item">
+                <input type="hidden" name="id_add_item" id="id_add_item">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
@@ -326,7 +326,7 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" >Agregar</button>
                 &nbsp; &nbsp;
-                <button type="button" class="btn btn-secondary" >Cancelar</button>
+                <button type="button" onclick="modal_search_item()" class="btn btn-secondary" >Cancelar</button>
             </div>
         </form>
     </div>

@@ -37,7 +37,7 @@
                     $table .= '<tr class="text-center">
                                     <td>'.$client['cliente_dni'].' - '.$client['cliente_nombre'].' - '.$client['cliente_apellido'].'</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus" onclick="add_client_reservation('.$client['cliente_id'].')"></i></button>
+                                        <button type="button" class="btn btn-primary"><i class="fas fa-user-plus" onclick="modal_add_client_reservation('.$client['cliente_id'].')"></i></button>
                                     </td>
                                 </tr>';
                 }                
@@ -175,4 +175,52 @@
             }
         }
 
+        public function add_item_loan_controller(){
+            $id_item = MainModel :: clearString($_POST['id_add_item']);
+            
+            $check_item = MainModel :: setConsult("SELECT * FROM item WHERE id_item = $id_item");
+
+            if($check_item -> rowCount() < 1){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encotrado el id en el sistema",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            $data = $check_item -> fetch();
+
+
+            session_start(['name' => 'ITM']);
+            if(empty($_SESSION['data_item'])){
+                $_SESSION['data_item'] = [
+                    "ID" => $datos['item_id'],
+                    "CODIGO" => $datos['codigo_item'],
+                    "NAME" => $datos['item_nombre'],
+                    "STOCK" => $datos['item_stock']
+                ];
+
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"Item agregado",
+                    "Text"=>"Se agrego correctamente el item",
+                    "Type"=>"success"
+                ];
+               
+
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encotrado el item",
+                    "Type"=>"error"
+                ];
+               // echo json_encode($alert);
+            }
+             echo json_encode($alert);
+
+        }
     }
