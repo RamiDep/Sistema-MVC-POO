@@ -189,38 +189,37 @@
                 ];
                 echo json_encode($alert);
                 exit();
-            }
+            }else
+                $data = $check_item -> fetch();
 
-            $data = $check_item -> fetch();
 
+            // session_start(['name' => 'ITM']);
+            // if(empty($_SESSION['data_item'])){
+            //     $_SESSION['data_item'] = [
+            //         "ID" => $datos['item_id'],
+            //         "CODIGO" => $datos['codigo_item'],
+            //         "NAME" => $datos['item_nombre'],
+            //         "STOCK" => $datos['item_stock']
+            //     ];
 
-            session_start(['name' => 'ITM']);
-            if(empty($_SESSION['data_item'])){
-                $_SESSION['data_item'] = [
-                    "ID" => $datos['item_id'],
-                    "CODIGO" => $datos['codigo_item'],
-                    "NAME" => $datos['item_nombre'],
-                    "STOCK" => $datos['item_stock']
-                ];
-
-                $alert = [
-                    "Alerta"=>"recargar",
-                    "Title"=>"Item agregado",
-                    "Text"=>"Se agrego correctamente el item",
-                    "Type"=>"success"
-                ];
+            //     $alert = [
+            //         "Alerta"=>"recargar",
+            //         "Title"=>"Item agregado",
+            //         "Text"=>"Se agrego correctamente el item",
+            //         "Type"=>"success"
+            //     ];
                
 
-            }else{
-                $alert = [
-                    "Alerta"=>"simple",
-                    "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"No se ha encotrado el item",
-                    "Type"=>"error"
-                ];
-               // echo json_encode($alert);
-            }
-             echo json_encode($alert);
+            // }else{
+            //     $alert = [
+            //         "Alerta"=>"simple",
+            //         "Title"=>"Ocurrio un error inesperado",
+            //         "Text"=>"No se ha encotrado el item",
+            //         "Type"=>"error"
+            //     ];
+            //    // echo json_encode($alert);
+            // }
+            //  echo json_encode($alert);
 
         }
     }
