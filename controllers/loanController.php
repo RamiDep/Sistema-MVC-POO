@@ -192,6 +192,21 @@
             }else
                 $data = $check_item -> fetch();
 
+            $cantidad = $_POST['detalle_cantidad'];
+            $tiempo = $_POST['detalle_tiempo'];
+            $costo = $_POST['detalle_costo_tiempo'];   
+            
+            if(empty($cantidad) || empty($tiempo) || empty($costo){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado!",
+                    "Text"=>"Los campos no se han llenado correctamente",
+                    "Type"=>"error"
+                ];
+            }
+
+
+
 
             // session_start(['name' => 'ITM']);
             // if(empty($_SESSION['data_item'])){
@@ -202,12 +217,7 @@
             //         "STOCK" => $datos['item_stock']
             //     ];
 
-            //     $alert = [
-            //         "Alerta"=>"recargar",
-            //         "Title"=>"Item agregado",
-            //         "Text"=>"Se agrego correctamente el item",
-            //         "Type"=>"success"
-            //     ];
+                
                
 
             // }else{
