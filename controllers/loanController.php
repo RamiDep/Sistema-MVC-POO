@@ -192,9 +192,11 @@
             }else
                 $data = $check_item -> fetch();
 
-            $cantidad = $_POST['detalle_cantidad'];
-            $tiempo = $_POST['detalle_tiempo'];
-            $costo = $_POST['detalle_costo_tiempo'];   
+            
+            $formato = mainModel :: clearString($_POST['detalle_formato']);
+            $cantidad = mainModel :: clearString($_POST['detalle_cantidad']);
+            $tiempo = mainModel :: clearString($_POST['detalle_tiempo']);
+            $costo = mainModel :: clearString($_POST['detalle_costo_tiempo']);   
             
             if(empty($cantidad) || empty($tiempo) || empty($costo){
                 $alert = [
@@ -205,31 +207,84 @@
                 ];
             }
 
+            if (MainModel::checkData("[0-9]{1,7}", $cantidad)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DNI",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if (MainModel::checkData("[0-9]{1,7}", $tiempo)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DNI",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if (MainModel::checkData("[0-9.]{1,15}", $costo)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo DNI",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if($formato != "Horas" && $formato != "Dias" && $formato != "Evento" && $formato != "Mes"){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo FORMATO",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
 
 
+            session_start(['name' => 'ITM']);
+            if(empty($_SESSION['data_item'][$id_item])){
+                $costo = number_format($costo, ".", "");
+                $_SESSION['data_item'][$id_item] = [
+                    "ID" => $id_item,
+                    "CODIGO" => $datos['codigo_item'],
+                    "NAME" => $datos['item_nombre'],
+                    "DETALLE" => $datos['item_stock'],
+                    "FORMATO" => $formato,
+                    "CANTIDAD" => $cantidad,
+                    "TIEMPO" => $tiempo,
+                    "COSTO" => $costo
+                ];
 
-            // session_start(['name' => 'ITM']);
-            // if(empty($_SESSION['data_item'])){
-            //     $_SESSION['data_item'] = [
-            //         "ID" => $datos['item_id'],
-            //         "CODIGO" => $datos['codigo_item'],
-            //         "NAME" => $datos['item_nombre'],
-            //         "STOCK" => $datos['item_stock']
-            //     ];
-
-                
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"¡Exito!",
+                    "Text"=>"Se ha agregado el item con exito",
+                    "Type"=>"success"
+                ];                
                
 
-            // }else{
-            //     $alert = [
-            //         "Alerta"=>"simple",
-            //         "Title"=>"Ocurrio un error inesperado",
-            //         "Text"=>"No se ha encotrado el item",
-            //         "Type"=>"error"
-            //     ];
-            //    // echo json_encode($alert);
-            // }
-            //  echo json_encode($alert);
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha encotrado el item",
+                    "Type"=>"error"
+                ];
+            //    echo json_encode($alert);
+            //    exit();
+            }
+            echo json_encode($alert);
 
         }
     }
