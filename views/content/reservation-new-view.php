@@ -280,7 +280,7 @@
 <!-- MODAL AGREGAR ITEM -->
 <div class="modal fade" id="ModalAgregarItem" tabindex="-1" role="dialog" aria-labelledby="ModalAgregarItem" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form class="modal-content FormularioAjax" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="default">
+        <form class="modal-content ajaxForm" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="default">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAgregarItem">Selecciona el formato, cantidad de items, tiempo y costo del préstamo del item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

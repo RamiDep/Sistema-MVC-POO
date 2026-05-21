@@ -178,13 +178,13 @@
         public function add_item_loan_controller(){
             $id_item = MainModel :: clearString($_POST['id_add_item']);
             
-            $check_item = MainModel :: setConsult("SELECT * FROM item WHERE id_item = $id_item");
+            $check_item = MainModel :: setConsult("SELECT * FROM item WHERE item_id = '$id_item'");
 
             if($check_item -> rowCount() < 1){
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado",
-                    "Text"=>"No se ha encotrado el id en el sistema",
+                    "Text"=>"No se ha encotrado el id en el sistema '$id_item'" ,
                     "Type"=>"error"
                 ];
                 echo json_encode($alert);
@@ -198,7 +198,7 @@
             $tiempo = mainModel :: clearString($_POST['detalle_tiempo']);
             $costo = mainModel :: clearString($_POST['detalle_costo_tiempo']);   
             
-            if(empty($cantidad) || empty($tiempo) || empty($costo){
+            if (empty($cantidad) || empty($tiempo) || empty($costo)){
                 $alert = [
                     "Alerta"=>"simple",
                     "Title"=>"Ocurrio un error inesperado!",
@@ -254,12 +254,12 @@
 
             session_start(['name' => 'ITM']);
             if(empty($_SESSION['data_item'][$id_item])){
-                $costo = number_format($costo, ".", "");
+                $costo = number_format($costo, 2, ".", "");
                 $_SESSION['data_item'][$id_item] = [
-                    "ID" => $id_item,
-                    "CODIGO" => $datos['codigo_item'],
-                    "NAME" => $datos['item_nombre'],
-                    "DETALLE" => $datos['item_stock'],
+                    "ID" => $data['item_id'],
+                    "CODIGO" => $data['item_codigo'],
+                    "NAME" => $data['item_nombre'],
+                    "DETALLE" => $data['item_detalle'],
                     "FORMATO" => $formato,
                     "CANTIDAD" => $cantidad,
                     "TIEMPO" => $tiempo,
@@ -267,7 +267,7 @@
                 ];
 
                 $alert = [
-                    "Alerta"=>"simple",
+                    "Alerta"=>"recargar",
                     "Title"=>"¡Exito!",
                     "Text"=>"Se ha agregado el item con exito",
                     "Type"=>"success"

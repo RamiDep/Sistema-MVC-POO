@@ -82,7 +82,7 @@
     function modal_add_item(id){
         $("#ModalItem").modal('hide');
         $("#ModalAgregarItem").modal('show');
-        document.querySelector('id_agregar_item').setAttribute("value", id);
+        document.querySelector('#id_add_item').setAttribute("value", id);
     }
 
     function modal_search_item(){
