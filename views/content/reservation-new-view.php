@@ -61,12 +61,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if(isset($_SESSION['data_item']) && count($_SESSION['data_item'] >= 1)){ 
+
+                            $_SESSION['prestamo_item'] = 0;
+                            $_SESSION['prestamo_total'] = 0;
+                            foreach($_SESSION['data_item'] as $item){
+                                $subtotal = ($item['CANTIDAD'])*($item['TIEMPO'])*($item['COSTO']);
+                                $subtotal = number_format($subtotal, 2, '.', '');
+                            
+                            ?>
                         <tr class="text-center" >
-                            <td>Silla plastica</td>
-                            <td>7</td>
-                            <td>Hora</td>
-                            <td>$5.00</td>
-                            <td>$35.00</td>
+                            <td><?= $item['NAME'] ?></td>
+                            <td><?= $item['CANTIDAD'] ?></td>
+                            <td><?= $item['TIEMPO'] ?></td>
+                            <td><?= $item['COSTO'] ?></td>
+                            <td><?= $subtotal ?></td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del item" data-content="Detalle completo del item">
                                     <i class="fas fa-info-circle"></i>
@@ -80,44 +89,7 @@
                                 </form>
                             </td>
                         </tr>
-                        <tr class="text-center" >
-                            <td>Silla metalica</td>
-                            <td>9</td>
-                            <td>Día</td>
-                            <td>$5.00</td>
-                            <td>$45.00</td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del item" data-content="Detalle completo del item">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <form action="">
-                                    <button type="button" class="btn btn-warning">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr class="text-center" >
-                            <td>Mesa plastica</td>
-                            <td>5</td>
-                            <td>Evento</td>
-                            <td>$10.00</td>
-                            <td>$50.00</td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del item" data-content="Detalle completo del item">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <form action="">
-                                    <button type="button" class="btn btn-warning">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                        <?php } ?>
                         <tr class="text-center bg-light">
                             <td><strong>TOTAL</strong></td>
                             <td><strong>21 items</strong></td>
@@ -125,6 +97,11 @@
                             <td><strong>$130.00</strong></td>
                             <td colspan="2"></td>
                         </tr>
+                        <?php }else{ ?>
+                            <tr class="text-center bg-light">
+                                <td colspan="7"><strong>No hay items</strong></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
