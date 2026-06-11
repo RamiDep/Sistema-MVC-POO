@@ -61,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(isset($_SESSION['data_item']) && count($_SESSION['data_item'] >= 1)){ 
+                        <?php if(isset($_SESSION['data_item']) && count($_SESSION['data_item']) >= 1){ 
 
                             $_SESSION['prestamo_item'] = 0;
                             $_SESSION['prestamo_total'] = 0;
@@ -73,28 +73,32 @@
                         <tr class="text-center" >
                             <td><?= $item['NAME'] ?></td>
                             <td><?= $item['CANTIDAD'] ?></td>
-                            <td><?= $item['TIEMPO'] ?></td>
-                            <td><?= $item['COSTO'] ?></td>
+                            <td><?= $item['TIEMPO'] . "-" . $item['FORMATO'] ?></td>
+                            <td>$<?= $item['COSTO'] . " x 1 " . $item['FORMATO'] ?></td>
                             <td><?= $subtotal ?></td>
                             <td>
-                                <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del item" data-content="Detalle completo del item">
+                                <button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="<?= $item['NAME'] ?>" data-content="<?= $item['DETALLE'] ?>">
                                     <i class="fas fa-info-circle"></i>
                                 </button>
                             </td>
                             <td>
-                                <form action="">
-                                    <button type="button" class="btn btn-warning">
+                                <form class="modal-content ajaxForm" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="default">
+                                    <input type="hidden" name="id_item_prestamo" value="<?= $item['ID'] ?>" >
+                                    <button type="submit" class="btn btn-warning">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php 
+                            $_SESSION['prestamo_item'] += $item['CANTIDAD'] ;
+                            $_SESSION['prestamo_total'] += $subtotal;
+                        } ?>
                         <tr class="text-center bg-light">
                             <td><strong>TOTAL</strong></td>
-                            <td><strong>21 items</strong></td>
+                            <td><strong><?= $_SESSION['prestamo_item'] ?></strong></td>
                             <td colspan="2"></td>
-                            <td><strong>$130.00</strong></td>
+                            <td><strong>$<?= $_SESSION['prestamo_total'] ?></strong></td>
                             <td colspan="2"></td>
                         </tr>
                         <?php }else{ ?>
