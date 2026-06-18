@@ -287,4 +287,35 @@
             echo json_encode($alert);
 
         }
+
+
+        public function delete_item_loan_controller(){
+            $id_item = MainModel :: clearString($_POST['id_item_prestamo_delete']);
+            
+            session_start(['name' => 'ITM']);
+
+            unset($_SESSION['data_item'][$id_item]);
+
+            if(empty($_SESSION['data_item'][$id_item])){
+                $alert = [
+                    "Alerta"=>"recargar",
+                    "Title"=>"¡Exito!",
+                    "Text"=>"Se ha eliminado el item de manera exitosa",
+                    "Type"=>"success"
+                ];                
+            }else{
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha podido eliminar el item",
+                    "Type"=>"error"
+                ];
+            }
+            
+            echo json_encode($alert);
+
+
+        }
+            
+
     }

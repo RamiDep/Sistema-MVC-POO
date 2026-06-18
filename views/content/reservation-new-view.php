@@ -83,7 +83,7 @@
                             </td>
                             <td>
                                 <form class="modal-content ajaxForm" action="<?= serverUrl ?>ajax/loanAjax.php" method="POST" data-form="default">
-                                    <input type="hidden" name="id_item_prestamo" value="<?= $item['ID'] ?>" >
+                                    <input type="hidden" name="id_item_prestamo_delete" value="<?= $item['ID'] ?>" >
                                     <button type="submit" class="btn btn-warning">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
