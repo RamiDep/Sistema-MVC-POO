@@ -110,7 +110,7 @@
                 </table>
             </div>
         </div>
-        <form action="" autocomplete="off">
+        <form class="ajaxForm" action="<?php echo serverUrl?>ajax/loanAjax.php" autocomplete="off">
             <fieldset>
                 <legend><i class="far fa-clock"></i> &nbsp; Fecha y hora de préstamo</legend>
                 <div class="container-fluid">
@@ -118,13 +118,13 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="prestamo_fecha_inicio">Fecha de préstamo</label>
-                                <input type="date" class="form-control" name="prestamo_fecha_inicio_reg" id="prestamo_fecha_inicio">
+                                <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" name="prestamo_fecha_inicio_reg" id="prestamo_fecha_inicio">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="prestamo_hora_inicio">Hora de préstamo</label>
-                                <input type="time" class="form-control" name="prestamo_hora_inicio_reg" id="prestamo_hora_inicio">
+                                <input type="time" class="form-control" value="<?php echo date("H:i:s"); ?>" name="prestamo_hora_inicio_reg" id="prestamo_hora_inicio">
                             </div>
                         </div>
                     </div>

@@ -32,6 +32,8 @@
             echo $objLoanController -> delete_item_loan_controller();     
         }
 
+
+        
     }else{
         session_start(["name" => 'Error']);
         session_unset();
