@@ -48,4 +48,18 @@
             
         }
 
+        public static function add_pay_model($data){
+            $insert_pay = MainModel :: connection() -> prepare("INSERT INTO pagos
+                (total_pago, fecha_pago, codigo_pago) 
+                VALUES 
+                (:total_pago, :fecha_pago, :codigo_pago)");
+            
+            $insert_pay -> bindParam(":total_pago", $data['total_pago']);
+            $insert_pay -> bindParam(":fecha_pago", $data['fecha_pago']);
+            $insert_pay -> bindParam(":codigo_pago", $data['codigo_pago']);
+        
+            $insert_pay -> execute();
+            
+        }
+
     }
