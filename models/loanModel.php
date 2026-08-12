@@ -62,4 +62,47 @@
             
         }
 
+        public static function delete_pay_model($code, $table){
+            $query_delete = "";
+            if($table == "prestamo"){
+                $query_delete = MainModel :: connection() -> prepare("UPDATE prestamo set estado = 1 WHERE prestamo_codigo = :codigo");
+            }elseif($table == "prestamo"){
+                $query_delete = MainModel :: connection() -> prepare("UPDATE detalle set estado = 1 WHERE prestamo_codigo = :codigo");
+            }else{
+                $query_delete = MainModel :: connection() -> prepare("UPDATE pago set estado = 1 WHERE prestamo_codigo = :codigo");
+            }
+
+            $query_delete -> bindParam(":codigo", $code);
+            $query_delete -> execute();
+
+            return $query_delete;
+        }
+
+        public static function data_pay_model($tipo, $id){
+            if($tipo == "unico"){
+                $sql = MainModel :: connection() -> prepare("SELECT * FROM prestamo WHERE prestamo_id = :id_prestamo");
+                $sql -> bindParam(":id_prestamo", $id);
+            }elseif($tipo == "conteo_reservacion"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 1");
+            }elseif($tipo == "conteo_prestamos"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 2");
+            }elseif($tipo == "conteo_finalizado"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 3");
+            }elseif($tipo == "conteo"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo");
+            }elseif($tipo == "detalle"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM detalle WHERE prestamo_codigo = :codigo");
+                $sql -> bindParam(":codigo", $id);
+            }elseif($tipo == "pago"){
+                $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM pagos WHERE prestamo_codigo = :codigo");
+                $sql -> bindParam(":codigo", $id);
+            }
+
+            $sql -> execute();
+
+            return $sql;
+        }
+
+
+
     }
