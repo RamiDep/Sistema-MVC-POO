@@ -64,11 +64,14 @@
 
         public static function delete_pay_model($code, $table){
             $query_delete = "";
-            if($table == "prestamo"){
+            if($table == "prestamo")
+            {
                 $query_delete = MainModel :: connection() -> prepare("UPDATE prestamo set estado = 1 WHERE prestamo_codigo = :codigo");
-            }elseif($table == "prestamo"){
+            }elseif($table == "detalle")
+            {
                 $query_delete = MainModel :: connection() -> prepare("UPDATE detalle set estado = 1 WHERE prestamo_codigo = :codigo");
-            }else{
+            }elseif($table == "pago")
+            {
                 $query_delete = MainModel :: connection() -> prepare("UPDATE pago set estado = 1 WHERE prestamo_codigo = :codigo");
             }
 
@@ -82,27 +85,48 @@
             if($tipo == "unico"){
                 $sql = MainModel :: connection() -> prepare("SELECT * FROM prestamo WHERE prestamo_id = :id_prestamo");
                 $sql -> bindParam(":id_prestamo", $id);
-            }elseif($tipo == "conteo_reservacion"){
+            }elseif($tipo == "conteo_reservacion")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 1");
-            }elseif($tipo == "conteo_prestamos"){
+            }elseif($tipo == "conteo_prestamos")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 2");
-            }elseif($tipo == "conteo_finalizado"){
+            }elseif($tipo == "conteo_finalizado")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo WHERE prestamo_estado = 3");
-            }elseif($tipo == "conteo"){
+            }elseif($tipo == "conteo")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM prestamo");
-            }elseif($tipo == "detalle"){
+            }elseif($tipo == "detalle")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM detalle WHERE prestamo_codigo = :codigo");
                 $sql -> bindParam(":codigo", $id);
-            }elseif($tipo == "pago"){
+            }elseif($tipo == "pago")
+            {
                 $sql = MainModel :: connection() -> prepare("SELECT prestamo_id FROM pagos WHERE prestamo_codigo = :codigo");
                 $sql -> bindParam(":codigo", $id);
             }
 
             $sql -> execute();
-
             return $sql;
         }
 
+        /** ACTUALIZAR MONTO DE PRESTAMO */
+        public static function update_pay_model($data){
+             $query_update = "";
+            if($data['tipo'] == "prestamo")
+            {
+                $query_update = MainModel :: connection() -> prepare("UPDATE prestamo set prestamo_estado = :estado, prestamo_observacion = :observacion WHERE prestamo_codigo = :codigo");
+                $query_update -> bindParam(":monto", $data['monto']);
+            }elseif($data['tipo'] == "pago")
+            {
+                $query_update = MainModel :: connection() -> prepare("UPDATE pago set prestamo_pagado = :monto  WHERE prestamo_codigo = :codigo");
+                $query_update -> bindParam(":estado", $data['estado']);
+                $query_update -> bindParam(":observacion", $data['observacion']);
+            }
 
+            $query_update -> bindParam(":codigo", $data['codigo']);
+            $query_update -> execute();
+        }
 
     }
