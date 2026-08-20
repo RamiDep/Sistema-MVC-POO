@@ -50,11 +50,23 @@
 
     <?php } ?>
 
+
+    <?php 
+        require_once ("./controllers/loanController.php");
+        $loan_object = new LoanController();
+
+        $numero_reservaciones = $loan_object -> data_pay_controller("conteo_reservacion", 0);  
+        $numero_prestamos = $loan_object -> data_pay_controller("conteo_prestamos", 0);
+        $numero_finalizados = $loan_object -> data_pay_controller("conteo_finalizado", 0);
+
+
+    ?>
+
     <a href="<?= serverUrl ?>reservation-reservation/" class="tile">
         <div class="tile-tittle">Reservaciones</div>
         <div class="tile-icon">
             <i class="far fa-calendar-alt fa-fw"></i>
-            <p>30 Registradas</p>
+            <p><?= $numero_reservaciones -> rowCount() ?> Registradas</p>
         </div>
     </a>
 
@@ -62,7 +74,7 @@
         <div class="tile-tittle">Prestamos</div>
         <div class="tile-icon">
             <i class="fas fa-hand-holding-usd fa-fw"></i>
-            <p>200 Registrados</p>
+            <p><?= $numero_prestamos -> rowCount() ?> Registrados</p>
         </div>
     </a>
 
@@ -70,7 +82,7 @@
         <div class="tile-tittle">Finalizados</div>
         <div class="tile-icon">
             <i class="fas fa-clipboard-list fa-fw"></i>
-            <p>700 Registrados</p>
+            <p><?= $numero_finalizados -> rowCount() ?> Registrados</p>
         </div>
     </a>
 

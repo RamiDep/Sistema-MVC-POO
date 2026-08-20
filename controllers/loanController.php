@@ -318,4 +318,14 @@
         }
             
 
+        public function data_pay_controller($type, $id){
+            $type = MainModel :: clearString($type);
+
+            $id = MainModel :: decryption($id);
+            $id = MainModel :: clearString($id);
+
+            return LoanModel :: data_pay_model($type, $id);
+
+        }
+
     }
