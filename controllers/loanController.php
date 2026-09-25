@@ -328,4 +328,215 @@
 
         }
 
+        public function add_loan_controller(){
+            if(empty($_SESSION['data_item'])){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se encontrado el item",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();
+            }
+
+            if(empty($_SESSION['data_client'])){
+                $alert = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se encontrado el cliente",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alert);
+                exit();   
+            }
+
+            $fecha_inicio = mainModel :: clearString($_POST['prestamo_fecha_inicio_reg']);
+            $hora_inicio = mainModel :: clearString($_POST['prestamo_hora_inicio_reg']);
+            $fecha_final = mainModel :: clearString($_POST['prestamo_fecha_final_reg']);
+            $hora_final = mainModel :: clearString($_POST['prestamo_hora_final_reg']);
+            $estado = mainModel :: clearString($_POST['prestamo_estado_reg']);
+            $total_pagado = mainModel :: clearString($_POST['prestamo_pagado_reg']);
+            $observacion = mainModel :: clearString($_POST['prestamo_observacion_reg']);
+
+
+            if(MainModel :: checkDateIn($fecha_inicio)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo fecha inicio",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+            
+            if(MainModel :: checkDateIn($hora_inicio)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo hora inicio",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if(MainModel :: checkDateIn($hora_final)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo hora final",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if(MainModel :: checkDateIn($fecha_final)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo fecha final",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if(MainModel :: checkData("[0-9.]{1,10}", $total_pagado)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"Formato incorrecto en el campo fecha final",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            if(!empty($observacion)){
+                if(MainModel :: checkData("[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,400}", $observacion)){
+                    $alerta = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"Formato incorrecto en el campo fecha final",
+                        "Type"=>"error"
+                    ];
+                    echo json_encode($alerta);
+                    exit();
+                }
+            }else{
+                $alerta = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"El campo observacion esta vacio",
+                        "Type"=>"error"
+                    ];
+                    echo json_encode($alerta);
+                    exit();
+            }
+
+            if($estado != "1" || $estado != "2" || $estado != "3"){
+                $alerta = [
+                        "Alerta"=>"simple",
+                        "Title"=>"Ocurrio un error inesperado",
+                        "Text"=>"El campo estado no  contiene un valor valido",
+                        "Type"=>"error"
+                    ];
+                    echo json_encode($alerta);
+                    exit();
+            }
+
+            if (strtotime($fecha_final) < strtotime($fecha_inicio)){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"El campo estado no  contiene un valor valido",
+                    "Type"=>"error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+
+            /** FORMATEANDO TOTALES FECHAS Y HORAS */
+
+            $total_prestamo = number_format($_SESSION['prestamo_total'], 2, '.', '');
+            $total_pagado = number_format($total_pagado, 2, '.', '');
+
+            $fecha_inicio = date("Y-m-d", strtotime($fecha_inicio));
+            $fecha_final = date("Y-m-d", strtotime($fecha_final));
+
+            $hora_inicio = date("h:i a", strtotime($hora_inicio));
+            $hora_final = date("h:i a", strtotime($hora_final));
+
+            $correlativo = mainModel :: setConsult("SELECT id_prestamo FROM prestamo");
+            $correlativo = ($correlativo -> rowCount()) + 1;
+            $codigo = MainModel :: getRandomCode("CP", 7, $correlativo);
+
+
+            $data_loan = [
+                "codigo" -> $codigo,
+                "fecha_inicio" -> $fecha_inicio,
+                "hora_inicio" -> $hora_inicio,
+                "fecha_final" -> $fecha_final,
+                "hora_final" -> $hora_final,
+                "cantidad" -> $_SESSION['prestamo_item'],
+                "pagado" -> $total_prestamo,
+                "total_pagado" -> $total_pagado,
+                "observacion" -> $observacion,
+                "estado" -> $estado,
+                "id_usuario" -> $_SESSION['id_spm'],
+                "id_cliente" -> $_SESSION['data_client']['id']
+            ];
+
+            $insert_loan = LoanModel :: add_loan_model($data_loan);
+
+            if($insert_loan -> rowCount() != 1){
+                $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"El campo estado no  contiene un valor valido",
+                    "Type"=>"error"
+                ];  
+                echo json_encode($alerta);
+                exit();   
+            }
+
+
+            /**
+             * Insert a la tabla de pagos
+             */
+            if($total_pagado > 0){
+                $datos_pago_reg = [
+                    "total" => $total_pagado,
+                    "fecha" => $fecha_inicio,
+                    "codigo" => $codigo,
+                ];
+                
+                $insert_pago = LoanModel :: add_pay_model($datos_pago_reg);
+
+                if($insert_pago -> rowCount() != 1){
+                    LoanModel :: delete_pay_model($codigo, "prestamo");
+                    $alerta = [
+                    "Alerta"=>"simple",
+                    "Title"=>"Ocurrio un error inesperado",
+                    "Text"=>"No se ha podigo insertar el pago (Error 001)",
+                    "Type"=>"error"
+                    ];  
+                    echo json_encode($alerta);
+                    exit();
+                }
+
+            }
+
+            /**
+             * Insert a la tabla detalles
+            */
+
+    
+            echo json_encode($alerta);
+            
+        }
+
     }

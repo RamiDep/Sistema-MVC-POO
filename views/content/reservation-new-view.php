@@ -158,16 +158,16 @@
                                 <label for="prestamo_estado" class="bmd-label-floating">Estado</label>
                                 <select class="form-control" name="prestamo_estado_reg" id="prestamo_estado">
                                     <option value="" selected="" disabled="">Seleccione una opción</option>
-                                    <option value="Reservacion">Reservación</option>
-                                    <option value="Prestamo">Préstamo</option>
-                                    <option value="Finalizado">Finalizado</option>
+                                    <option value="1">Reservación</option>
+                                    <option value="2">Préstamo</option>
+                                    <option value="3">Finalizado</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-4">
                             <div class="form-group">
                                 <label for="prestamo_total" class="bmd-label-floating">Total a pagar en $</label>
-                                <input type="text" pattern="[0-9.]{1,10}" class="form-control" readonly="" value="100.00" id="prestamo_total" maxlength="10">
+                                <input type="text" pattern="[0-9.]{1,10}" class="form-control" readonly="" value="100.00"  id="prestamo_total" maxlength="10">
                             </div>
                         </div>
                         <div class="col-12 col-md-4">
@@ -179,7 +179,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="prestamo_observacion" class="bmd-label-floating">Observación</label>
-                                <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ#() ]{1,400}" class="form-control" name="prestamo_observacion_reg" id="prestamo_observacion" maxlength="400">
+                                <input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ#\(\) ]{1,400}" class="form-control" name="prestamo_observacion_reg" id="prestamo_observacion" maxlength="400">
                             </div>
                         </div>
                     </div>
